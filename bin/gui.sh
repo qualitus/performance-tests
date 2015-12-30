@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Run jMeter in CLI / non-GUI mode
+# Run jMeter in GUI mode
 #
 # NOTE:
 # * This script `cd`s into the testsuite root directory (see very last line)
@@ -19,7 +19,6 @@ function main {
   watch_log PID
 
   jmeter \
-    --nongui \
     --logfile $RESULTS \
     --testfile $TESTPLAN \
     --jmeterlogfile $LOG \
@@ -73,24 +72,11 @@ function main {
 		# 	the jmeter home directory to use
 	  #--remoteexit \
 		# 	Exit the remote servers at end of test (non-GUI)
-
-    show $RESULTS \
-      $SCRIPT_STDOUT \
-      $SCRIPT_STDERR
 }
 
 function parse_props {
   for P in $@; do
     echo "--jmeterproperty ${P}"
-  done
-}
-
-function indent() { sed 's/^/  /'; }
-
-function show {
-  for file in $@; do
-    echo -e "\n#### `basename ${file}` (${file}):"
-    cat $file | indent
   done
 }
 

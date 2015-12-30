@@ -46,13 +46,19 @@ Boolean tryImportV(String key) {
 try {
 	log.info("___ LOADER: START IMPORTING PROPERTIES ___");
 
+	importV("ON_STARTUP");
+	importV("ON_TEARDOWN");
 	importV("WORK_DIR");
 	importV("OUT_DIR");
 
-	if (tryImportV("ILIAS_UPDATE_CMD")) {
-		importV("ILIAS_UPDATE_STDOUT");
-		importV("ILIAS_UPDATE_STDERR");
-	}
+	importV("HOST");
+	importV("PATH");
+	importV("PORT");
+	importV("PROTOCOL");
+
+	importV("THREADS");
+	importV("RAMP_UP");
+	importV("LOOPS");
 
   log.info("___ LOADER: END ___");
 } catch(e) {

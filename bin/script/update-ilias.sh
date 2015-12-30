@@ -1,12 +1,13 @@
 #!/bin/bash
 
 # Update ILIAS
+#
 # You need to install the ILIAS auto_update script first.
 
-ENABLED=false
+ENABLED=true
 
 WORK_DIR="/opt/ilias/auto_update"
-CONFIG="" # <-- must be set "/etc/opt/ilias/auto_upate/trunk_config.pl"
+CONFIG="/etc/opt/ilias/auto_upate/trunk_config.pl"
 
 if $ENABLED; then
   if [[ -f $CONFIG && -n $CONFIG ]]; then
@@ -17,5 +18,5 @@ if $ENABLED; then
     exit 1
   fi
 else
-  echo "Skipping Auto-Update [$0]"
+  echo "Skipping Auto-Update (disabled) [$0]"
 fi
