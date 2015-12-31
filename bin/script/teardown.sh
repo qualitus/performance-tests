@@ -20,12 +20,21 @@ function main {
 
   # OPTIONAL STEPS:
   # render some graphs etc.
+  if [[ $RESULTS == *.xml ]]; then
+    echo "Result format is XML"
+    REPORT=${OUT_DIR}/xml-report.html
+    echo "Generating $(basename $REPORT) ($REPORT)"
+    xsltproc -o ${REPORT} bin/script/report/xml2html.xsl $RESULTS
+  elif [[ $RESULTS == *.csv ]]; then
+    echo "Result format is CSV"
+  fi
 
   echo "## End Teardown"
+  sleep 1
 }
 
 function append_script_out {
-  exec 1>>$SCRIPT_STDOUT 2>>$SCRIPT_STDERR
+  exec 1> >(tee -a $SCRIPT_STDOUT) 2> >(tee -a $SCRIPT_STDERR >&2)
 }
 
 function base_dir {

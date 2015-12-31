@@ -18,7 +18,7 @@ function main {
   echo "#### running (${TESTPLAN} in working directory: ${WORK_DIR}):"
   watch_log PID
 
-  jmeter \
+  $JMETER_CMD \
     --logfile $RESULTS \
     --testfile $TESTPLAN \
     --jmeterlogfile $LOG \

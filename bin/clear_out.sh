@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Invoked by ILIAS Performance Testsuite before each testrun
+# Clear ${OUT_DIR}
 #
 # NOTE:
 # * This script `cd`s into the testsuite root directory (see very last line)
@@ -15,17 +15,19 @@ function load_config {
 function main {
   load_config $@
 
-  replace_script_out
-  echo -e "\n## Begin Startup (${WORK_DIR})"
+  echo "Clear $(basename $OUT_DIR) ($OUT_DIR)"
+  ls -l ${OUT_DIR}
 
-  # OPTIONAL STEPS:
-  # ${WORK_DIR}/bin/script/update-ilias.sh
-
-  echo "## End Startup"
+  echo -e "\nWARNING: Above files will be deleted"
+  confirm
+  rm -r ${OUT_DIR}
 }
 
-function replace_script_out {
-  exec 1> >(tee $SCRIPT_STDOUT) 2> >(tee $SCRIPT_STDERR >&2)
+confirm() {
+  read -rp 'Enter "y" to confirm...' REPLY
+  if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+    exit 1
+  fi
 }
 
 function base_dir {
@@ -41,4 +43,4 @@ function base_dir {
   echo ${__DIR}
 }
 
-(cd "$(base_dir)/../../" && main $@)
+(cd "$(base_dir)/../" && main $@)

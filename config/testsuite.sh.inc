@@ -5,15 +5,23 @@
 # This bash script defines local variables used by `bin/run.sh`.
 # It will be included by
 
+WORK_DIR=$(pwd)
+
 # TODO: interpret bash parameters $(echo $1; shift)
 TESTPLAN="testcases/staging/login.jmx"
 
-WORK_DIR=$(pwd)
+# jMeter Command -- default: jmeter
+JMETER_CMD=${WORK_DIR}/.apache-jmeter-2.13/bin/jmeter.sh
 OUT_DIR="${WORK_DIR}/out"
 LOADER="${WORK_DIR}/bin/script/loader.bsh"
 
-RESULTS="${OUT_DIR}/results.csv"
-PROPFILE="${WORK_DIR}/config/jmeter.properties"
+##### Save results as CSV or XML #####
+# RESULTS="${OUT_DIR}/results.csv"
+# PROPFILE="${WORK_DIR}/config/jmeter/csv-results.properties"
+RESULTS="${OUT_DIR}/results.xml"
+PROPFILE="${WORK_DIR}/config/jmeter/xml-results.properties"
+#####
+
 LOG="${OUT_DIR}/jmeter.log" # may want to add a timestamp YYYY-MM-DD...
 SCRIPT_STDOUT="${OUT_DIR}/script_stdout.log"
 SCRIPT_STDERR="${OUT_DIR}/script_stderr.log"
