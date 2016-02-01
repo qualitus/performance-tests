@@ -21,6 +21,10 @@ cp setup/var/user_import.xml.dist setup/var/user_import.xml
 sed s/09e705636e39b8d72023b3f18251de11/__MD5_HASH__/ setup/var/user_import.xml
 ```
 
+* Import these users to ILIAS (administration > user accounts > import users > user_import.xml)
+* Deactivate the setting "users must change their password on first login" (can be reactivated once theses users have logged in)
+* Deactivate the user agreement (or login with these users and accept the agreement)
+
 ### Alternative User Data
 
 If you want to add or change user data, you can edit the Excel sheet `setup/var/user_import.xls` and export to `setup/var/user_import.xml`. Don't forget to run these steps at the root of the repository (substitute `__STRONG_PASSWORD__`)

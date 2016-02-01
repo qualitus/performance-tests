@@ -8,7 +8,7 @@
 WORK_DIR=$(pwd)
 
 # TODO: interpret bash parameters $(echo $1; shift)
-TESTPLAN="testcases/staging/login.jmx"
+TESTPLAN="testcases/suite.jmx"
 
 # jMeter Command -- default: jmeter
 JMETER_CMD=${WORK_DIR}/.apache-jmeter-2.13/bin/jmeter.sh

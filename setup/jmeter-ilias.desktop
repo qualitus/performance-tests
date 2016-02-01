@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=JMeter for ILIAS Performance Testsuite
+Comment=Load testing application
+Keywords=performance;load;testing
+Exec=jmeter-ilias
+Icon=jmeter.png
+Terminal=false
+Type=Application
+Categories=Development;
