@@ -24,7 +24,8 @@ function main {
     --testfile $TESTPLAN \
     --jmeterlogfile $LOG \
     --addprop $PROPFILE \
-	  $(parse_props ${PROPERTIES[*]}) \
+	  $(parse_jmeterprops ${JMETER_PROPERTIES[*]}) \
+	  $(parse_systemprops ${SYSTEM_PROPERTIES[*]}) \
     $@
 
   kill $PID
@@ -79,9 +80,15 @@ function main {
       $SCRIPT_STDERR
 }
 
-function parse_props {
+function parse_jmeterprops {
   for P in $@; do
     echo "--jmeterproperty ${P}"
+  done
+}
+
+function parse_systemprops {
+  for P in $@; do
+    echo "--systemproperty ${P}"
   done
 }
 

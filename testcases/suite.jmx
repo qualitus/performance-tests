@@ -33,6 +33,11 @@
             <stringProp name="Argument.value">${__P(PORT,#NV)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
+          <elementProp name="CLIENT_ID" elementType="Argument">
+            <stringProp name="Argument.name">CLIENT_ID</stringProp>
+            <stringProp name="Argument.value">${__P(CLIENT_ID,#NV)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
           <elementProp name="THREADS" elementType="Argument">
             <stringProp name="Argument.name">THREADS</stringProp>
             <stringProp name="Argument.value">${__P(THREADS,#NV)}</stringProp>
@@ -71,6 +76,11 @@
           <elementProp name="CREDENTIALS_CSV" elementType="Argument">
             <stringProp name="Argument.name">CREDENTIALS_CSV</stringProp>
             <stringProp name="Argument.value">${__P(CREDENTIALS_CSV,#NV)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="IS_ADMIN" elementType="Argument">
+            <stringProp name="Argument.name">IS_ADMIN</stringProp>
+            <stringProp name="Argument.value">${__P(IS_ADMIN,#NV)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
         </collectionProp>
@@ -131,7 +141,7 @@
         <hashTree>
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="PROTOCOL" enabled="true">
             <collectionProp name="Asserion.test_strings">
-              <stringProp name="728313791">(?!#NV)http|https</stringProp>
+              <stringProp name="488764481">(?!#NV)https|http</stringProp>
             </collectionProp>
             <stringProp name="TestPlan.comments">http, https</stringProp>
             <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
@@ -175,6 +185,18 @@
             <intProp name="Assertion.test_type">1</intProp>
             <stringProp name="Assertion.scope">variable</stringProp>
             <stringProp name="Scope.variable">PORT</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="CLIENT_ID" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="-856324859">(?!#NV).+</stringProp>
+            </collectionProp>
+            <stringProp name="TestPlan.comments">may not be empty or null [equals not &quot;&quot; fails for null, i.e. yields true]</stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">1</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">CLIENT_ID</stringProp>
           </ResponseAssertion>
           <hashTree/>
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="THREADS" enabled="true">
@@ -272,6 +294,17 @@
             <stringProp name="Scope.variable">CREDENTIALS_CSV</stringProp>
           </ResponseAssertion>
           <hashTree/>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="IS_ADMIN" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="412828714">true|TRUE|false|FALSE</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">1</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">IS_ADMIN</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
         </hashTree>
         <SystemSampler guiclass="SystemSamplerGui" testclass="SystemSampler" testname="shell: STARTUP" enabled="true">
           <boolProp name="SystemSampler.checkReturnCode">true</boolProp>
@@ -304,386 +337,801 @@
       <hashTree>
         <OnceOnlyController guiclass="OnceOnlyControllerGui" testclass="OnceOnlyController" testname="Login Once Only" enabled="false"/>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET Login" enabled="true">
-          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-            <collectionProp name="Arguments.arguments"/>
-          </elementProp>
-          <stringProp name="HTTPSampler.domain"></stringProp>
-          <stringProp name="HTTPSampler.port"></stringProp>
-          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-          <stringProp name="HTTPSampler.response_timeout"></stringProp>
-          <stringProp name="HTTPSampler.protocol"></stringProp>
-          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">${PATH}/login.php</stringProp>
-          <stringProp name="HTTPSampler.method">GET</stringProp>
-          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-          <boolProp name="HTTPSampler.monitor">false</boolProp>
-          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-        </HTTPSamplerProxy>
+        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="TEST Login" enabled="true">
+          <boolProp name="TransactionController.includeTimers">false</boolProp>
+          <boolProp name="TransactionController.parent">true</boolProp>
+        </TransactionController>
         <hashTree>
-          <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="ilLoginAction" enabled="true">
-            <stringProp name="HtmlExtractor.refname">ilLoginAction</stringProp>
-            <stringProp name="HtmlExtractor.expr">#form_[name=formlogin]</stringProp>
-            <stringProp name="HtmlExtractor.attribute">action</stringProp>
-            <stringProp name="HtmlExtractor.default">#NV</stringProp>
-            <stringProp name="HtmlExtractor.match_number"></stringProp>
-            <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
-          </HtmlExtractor>
-          <hashTree/>
-          <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="ilLoginUsername" enabled="true">
-            <stringProp name="HtmlExtractor.refname">ilLoginUsername</stringProp>
-            <stringProp name="HtmlExtractor.expr">#form_[name=formlogin] #username</stringProp>
-            <stringProp name="HtmlExtractor.attribute">name</stringProp>
-            <stringProp name="HtmlExtractor.default">#NV</stringProp>
-            <stringProp name="HtmlExtractor.match_number"></stringProp>
-            <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
-          </HtmlExtractor>
-          <hashTree/>
-          <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="ilLoginPassword" enabled="true">
-            <stringProp name="HtmlExtractor.refname">ilLoginPassword</stringProp>
-            <stringProp name="HtmlExtractor.expr">#form_[name=formlogin] #password</stringProp>
-            <stringProp name="HtmlExtractor.attribute">name</stringProp>
-            <stringProp name="HtmlExtractor.default">#NV</stringProp>
-            <stringProp name="HtmlExtractor.match_number"></stringProp>
-            <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
-          </HtmlExtractor>
-          <hashTree/>
-          <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="ilLoginSubmit" enabled="true">
-            <stringProp name="HtmlExtractor.refname">ilLoginSubmit</stringProp>
-            <stringProp name="HtmlExtractor.expr">#form_[name=formlogin] input[type=submit]</stringProp>
-            <stringProp name="HtmlExtractor.attribute">name</stringProp>
-            <stringProp name="HtmlExtractor.default">#NV</stringProp>
-            <stringProp name="HtmlExtractor.match_number"></stringProp>
-            <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
-          </HtmlExtractor>
-          <hashTree/>
-          <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="ilLoginSubmitV" enabled="true">
-            <stringProp name="HtmlExtractor.refname">ilLoginSubmitV</stringProp>
-            <stringProp name="HtmlExtractor.expr">#form_[name=formlogin] input[type=submit]</stringProp>
-            <stringProp name="HtmlExtractor.attribute">value</stringProp>
-            <stringProp name="HtmlExtractor.default">#NV</stringProp>
-            <stringProp name="HtmlExtractor.match_number"></stringProp>
-            <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
-          </HtmlExtractor>
-          <hashTree/>
-          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ilLoginAction" enabled="true">
-            <collectionProp name="Asserion.test_strings">
-              <stringProp name="36139">#NV</stringProp>
-              <stringProp name="0"></stringProp>
-            </collectionProp>
-            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-            <boolProp name="Assertion.assume_success">false</boolProp>
-            <intProp name="Assertion.test_type">12</intProp>
-            <stringProp name="Assertion.scope">variable</stringProp>
-            <stringProp name="Scope.variable">ilLoginAction</stringProp>
-          </ResponseAssertion>
-          <hashTree/>
-          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ilLoginUsername" enabled="true">
-            <collectionProp name="Asserion.test_strings">
-              <stringProp name="36139">#NV</stringProp>
-              <stringProp name="0"></stringProp>
-            </collectionProp>
-            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-            <boolProp name="Assertion.assume_success">false</boolProp>
-            <intProp name="Assertion.test_type">12</intProp>
-            <stringProp name="Assertion.scope">variable</stringProp>
-            <stringProp name="Scope.variable">ilLoginUsername</stringProp>
-          </ResponseAssertion>
-          <hashTree/>
-          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ilLoginPassword" enabled="true">
-            <collectionProp name="Asserion.test_strings">
-              <stringProp name="36139">#NV</stringProp>
-              <stringProp name="0"></stringProp>
-            </collectionProp>
-            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-            <boolProp name="Assertion.assume_success">false</boolProp>
-            <intProp name="Assertion.test_type">12</intProp>
-            <stringProp name="Assertion.scope">variable</stringProp>
-            <stringProp name="Scope.variable">ilLoginPassword</stringProp>
-          </ResponseAssertion>
-          <hashTree/>
-          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ilLoginSubmit" enabled="true">
-            <collectionProp name="Asserion.test_strings">
-              <stringProp name="36139">#NV</stringProp>
-              <stringProp name="0"></stringProp>
-            </collectionProp>
-            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-            <boolProp name="Assertion.assume_success">false</boolProp>
-            <intProp name="Assertion.test_type">12</intProp>
-            <stringProp name="Assertion.scope">variable</stringProp>
-            <stringProp name="Scope.variable">ilLoginSubmit</stringProp>
-          </ResponseAssertion>
-          <hashTree/>
-          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ilLoginSubmitV" enabled="true">
-            <collectionProp name="Asserion.test_strings">
-              <stringProp name="36139">#NV</stringProp>
-              <stringProp name="0"></stringProp>
-            </collectionProp>
-            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-            <boolProp name="Assertion.assume_success">false</boolProp>
-            <intProp name="Assertion.test_type">12</intProp>
-            <stringProp name="Assertion.scope">variable</stringProp>
-            <stringProp name="Scope.variable">ilLoginSubmitV</stringProp>
-          </ResponseAssertion>
-          <hashTree/>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET Login" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+              <collectionProp name="Arguments.arguments"/>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">${PATH}/login.php?client_id=${CLIENT_ID}</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <boolProp name="HTTPSampler.monitor">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="ilGetLoginAction" enabled="true">
+              <stringProp name="HtmlExtractor.refname">ilGetLoginAction</stringProp>
+              <stringProp name="HtmlExtractor.expr">#form_[name=formlogin]</stringProp>
+              <stringProp name="HtmlExtractor.attribute">action</stringProp>
+              <stringProp name="HtmlExtractor.default">#NV</stringProp>
+              <stringProp name="HtmlExtractor.match_number"></stringProp>
+              <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
+            </HtmlExtractor>
+            <hashTree/>
+            <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="ilGetLoginUsername" enabled="true">
+              <stringProp name="HtmlExtractor.refname">ilGetLoginUsername</stringProp>
+              <stringProp name="HtmlExtractor.expr">#form_[name=formlogin] #username</stringProp>
+              <stringProp name="HtmlExtractor.attribute">name</stringProp>
+              <stringProp name="HtmlExtractor.default">#NV</stringProp>
+              <stringProp name="HtmlExtractor.match_number"></stringProp>
+              <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
+            </HtmlExtractor>
+            <hashTree/>
+            <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="ilGetLoginPassword" enabled="true">
+              <stringProp name="HtmlExtractor.refname">ilGetLoginPassword</stringProp>
+              <stringProp name="HtmlExtractor.expr">#form_[name=formlogin] #password</stringProp>
+              <stringProp name="HtmlExtractor.attribute">name</stringProp>
+              <stringProp name="HtmlExtractor.default">#NV</stringProp>
+              <stringProp name="HtmlExtractor.match_number"></stringProp>
+              <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
+            </HtmlExtractor>
+            <hashTree/>
+            <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="ilGetlLoginSubmit" enabled="true">
+              <stringProp name="HtmlExtractor.refname">ilGetLoginSubmit</stringProp>
+              <stringProp name="HtmlExtractor.expr">#form_[name=formlogin] input[type=submit]</stringProp>
+              <stringProp name="HtmlExtractor.attribute">name</stringProp>
+              <stringProp name="HtmlExtractor.default">#NV</stringProp>
+              <stringProp name="HtmlExtractor.match_number"></stringProp>
+              <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
+            </HtmlExtractor>
+            <hashTree/>
+            <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="ilGetLoginSubmitV" enabled="true">
+              <stringProp name="HtmlExtractor.refname">ilGetLoginSubmitV</stringProp>
+              <stringProp name="HtmlExtractor.expr">#form_[name=formlogin] input[type=submit]</stringProp>
+              <stringProp name="HtmlExtractor.attribute">value</stringProp>
+              <stringProp name="HtmlExtractor.default">#NV</stringProp>
+              <stringProp name="HtmlExtractor.match_number"></stringProp>
+              <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
+            </HtmlExtractor>
+            <hashTree/>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ilGetLoginAction" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="36139">#NV</stringProp>
+                <stringProp name="0"></stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">12</intProp>
+              <stringProp name="Assertion.scope">variable</stringProp>
+              <stringProp name="Scope.variable">ilGetLoginAction</stringProp>
+            </ResponseAssertion>
+            <hashTree/>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ilGetLoginUsername" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="36139">#NV</stringProp>
+                <stringProp name="0"></stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">12</intProp>
+              <stringProp name="Assertion.scope">variable</stringProp>
+              <stringProp name="Scope.variable">ilGetLoginUsername</stringProp>
+            </ResponseAssertion>
+            <hashTree/>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ilGetLoginPassword" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="36139">#NV</stringProp>
+                <stringProp name="0"></stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">12</intProp>
+              <stringProp name="Assertion.scope">variable</stringProp>
+              <stringProp name="Scope.variable">ilGetLoginPassword</stringProp>
+            </ResponseAssertion>
+            <hashTree/>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ilGetLoginSubmit" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="36139">#NV</stringProp>
+                <stringProp name="0"></stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">12</intProp>
+              <stringProp name="Assertion.scope">variable</stringProp>
+              <stringProp name="Scope.variable">ilGetLoginSubmit</stringProp>
+            </ResponseAssertion>
+            <hashTree/>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ilGetLoginSubmitV" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="36139">#NV</stringProp>
+                <stringProp name="0"></stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">12</intProp>
+              <stringProp name="Assertion.scope">variable</stringProp>
+              <stringProp name="Scope.variable">ilGetLoginSubmitV</stringProp>
+            </ResponseAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST Login" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="${ilGetLoginUsername}" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${USERNAME}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">${ilGetLoginUsername}</stringProp>
+                </elementProp>
+                <elementProp name="${ilGetLoginPassword}" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${PASSWORD}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">${ilGetLoginPassword}</stringProp>
+                </elementProp>
+                <elementProp name="${ilGetLoginSubmit}" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${ilGetLoginSubmitV}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">${ilGetLoginSubmit}</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">${PATH}/${ilGetLoginAction}</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <boolProp name="HTTPSampler.monitor">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <ResultAction guiclass="ResultActionGui" testclass="ResultAction" testname="ON ERROR: Start Next Iteration" enabled="true">
+              <intProp name="OnError.action">4</intProp>
+            </ResultAction>
+            <hashTree/>
+            <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="ilPostLoginAction" enabled="true">
+              <stringProp name="HtmlExtractor.refname">ilPostLoginAction</stringProp>
+              <stringProp name="HtmlExtractor.expr">#form_[name=formlogin]</stringProp>
+              <stringProp name="HtmlExtractor.attribute">action</stringProp>
+              <stringProp name="HtmlExtractor.default">#NV</stringProp>
+              <stringProp name="HtmlExtractor.match_number"></stringProp>
+              <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
+            </HtmlExtractor>
+            <hashTree/>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ilPostLoginAction" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="36139">#NV</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">8</intProp>
+              <stringProp name="Assertion.scope">variable</stringProp>
+              <stringProp name="Scope.variable">ilPostLoginAction</stringProp>
+            </ResponseAssertion>
+            <hashTree/>
+          </hashTree>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST Login" enabled="true">
-          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-            <collectionProp name="Arguments.arguments">
-              <elementProp name="${ilLoginUsername}" elementType="HTTPArgument">
-                <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                <stringProp name="Argument.value">${USERNAME}</stringProp>
-                <stringProp name="Argument.metadata">=</stringProp>
-                <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                <stringProp name="Argument.name">${ilLoginUsername}</stringProp>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Repository" enabled="true"/>
+        <hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET Repository" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+              <collectionProp name="Arguments.arguments"/>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">${PATH}/goto.php?target=root_1</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <boolProp name="HTTPSampler.monitor">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="ilGetRepositoryHeaderImage" enabled="true">
+              <stringProp name="HtmlExtractor.refname">ilGetRepositoryHeaderImage</stringProp>
+              <stringProp name="HtmlExtractor.expr">#headerimage</stringProp>
+              <stringProp name="HtmlExtractor.attribute">src</stringProp>
+              <stringProp name="HtmlExtractor.default">#NV</stringProp>
+              <stringProp name="HtmlExtractor.match_number"></stringProp>
+              <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
+            </HtmlExtractor>
+            <hashTree/>
+            <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="ilGetRepositoryBreadcrumbUrl" enabled="true">
+              <stringProp name="HtmlExtractor.refname">ilGetRepositoryBreadcrumbUrl</stringProp>
+              <stringProp name="HtmlExtractor.expr">ol.breadcrumb a</stringProp>
+              <stringProp name="HtmlExtractor.attribute">href</stringProp>
+              <stringProp name="HtmlExtractor.default">#NV</stringProp>
+              <stringProp name="HtmlExtractor.match_number"></stringProp>
+              <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
+            </HtmlExtractor>
+            <hashTree/>
+            <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="ilGetRepositoryBreadcrumbContent" enabled="true">
+              <stringProp name="HtmlExtractor.refname">ilGetRepositoryBreadcrumbContent</stringProp>
+              <stringProp name="HtmlExtractor.expr">ol.breadcrumb a</stringProp>
+              <stringProp name="HtmlExtractor.attribute"></stringProp>
+              <stringProp name="HtmlExtractor.default">#NV</stringProp>
+              <stringProp name="HtmlExtractor.match_number"></stringProp>
+              <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
+            </HtmlExtractor>
+            <hashTree/>
+            <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="ilGetRepositoryHeaderContent" enabled="true">
+              <stringProp name="HtmlExtractor.refname">ilGetRepositoryHeaderContent</stringProp>
+              <stringProp name="HtmlExtractor.expr">#il_mhead_t_focus</stringProp>
+              <stringProp name="HtmlExtractor.attribute"></stringProp>
+              <stringProp name="HtmlExtractor.default">#NV</stringProp>
+              <stringProp name="HtmlExtractor.match_number"></stringProp>
+              <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
+            </HtmlExtractor>
+            <hashTree/>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ilGetRepositoryHeaderImage" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="-167724106">/images/icon_root.svg</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">16</intProp>
+              <stringProp name="Assertion.scope">variable</stringProp>
+              <stringProp name="Scope.variable">ilGetRepositoryHeaderImage</stringProp>
+              <stringProp name="TestPlan.comments">sanity check if we are on the right page (and not forced to change password, accept user agreement, etc.)</stringProp>
+            </ResponseAssertion>
+            <hashTree/>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ilGetRepositoryBreadcrumbUrl" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="-1449016747">ilias\.php\?ref\_id\=1\&amp;cmd\=frameset\&amp;cmdClass\=ilrepositorygui\&amp;cmdNode\=[^&amp;]*\&amp;baseClass\=ilRepositoryGUI1</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">6</intProp>
+              <stringProp name="Assertion.scope">variable</stringProp>
+              <stringProp name="Scope.variable">ilGetRepositoryBreadcrumbUrl</stringProp>
+            </ResponseAssertion>
+            <hashTree/>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ilGetRepositoryBreadcrumbContent" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="-2240617">${ilGetRepositoryHeaderContent}</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">8</intProp>
+              <stringProp name="Assertion.scope">variable</stringProp>
+              <stringProp name="Scope.variable">ilGetRepositoryBreadcrumbContent</stringProp>
+              <stringProp name="TestPlan.comments">sanity check, that we picked the right breadcrumb (must match the header)</stringProp>
+            </ResponseAssertion>
+            <hashTree/>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ilGetRepositoryHeaderContent" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="-856324859">(?!#NV).+</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">1</intProp>
+              <stringProp name="Assertion.scope">variable</stringProp>
+              <stringProp name="Scope.variable">ilGetRepositoryHeaderContent</stringProp>
+            </ResponseAssertion>
+            <hashTree/>
+          </hashTree>
+        </hashTree>
+        <IfController guiclass="IfControllerPanel" testclass="IfController" testname="IF Admin" enabled="true">
+          <stringProp name="IfController.condition">${IS_ADMIN}</stringProp>
+          <boolProp name="IfController.evaluateAll">false</boolProp>
+          <boolProp name="IfController.useExpression">true</boolProp>
+        </IfController>
+        <hashTree>
+          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="TEST Manage Repository" enabled="true">
+            <boolProp name="TransactionController.includeTimers">false</boolProp>
+            <stringProp name="TestPlan.comments">some CRUD operations with categories</stringProp>
+            <boolProp name="TransactionController.parent">true</boolProp>
+          </TransactionController>
+          <hashTree>
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET Repository" enabled="true">
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+                <collectionProp name="Arguments.arguments"/>
               </elementProp>
-              <elementProp name="${ilLoginPassword}" elementType="HTTPArgument">
-                <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                <stringProp name="Argument.value">${PASSWORD}</stringProp>
-                <stringProp name="Argument.metadata">=</stringProp>
-                <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                <stringProp name="Argument.name">${ilLoginPassword}</stringProp>
-              </elementProp>
-              <elementProp name="${ilLoginSubmit}" elementType="HTTPArgument">
-                <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                <stringProp name="Argument.value">${ilLoginSubmitV}</stringProp>
-                <stringProp name="Argument.metadata">=</stringProp>
-                <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                <stringProp name="Argument.name">${ilLoginSubmit}</stringProp>
-              </elementProp>
-            </collectionProp>
-          </elementProp>
-          <stringProp name="HTTPSampler.domain"></stringProp>
-          <stringProp name="HTTPSampler.port"></stringProp>
-          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-          <stringProp name="HTTPSampler.response_timeout"></stringProp>
-          <stringProp name="HTTPSampler.protocol"></stringProp>
-          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">${PATH}/${ilLoginAction}</stringProp>
-          <stringProp name="HTTPSampler.method">POST</stringProp>
-          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-          <boolProp name="HTTPSampler.monitor">false</boolProp>
-          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-        </HTTPSamplerProxy>
-        <hashTree>
-          <ResultAction guiclass="ResultActionGui" testclass="ResultAction" testname="ON ERROR: Start Next Iteration" enabled="true">
-            <intProp name="OnError.action">4</intProp>
-          </ResultAction>
-          <hashTree/>
-          <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="ilPostLoginAction" enabled="true">
-            <stringProp name="HtmlExtractor.refname">ilPostLoginAction</stringProp>
-            <stringProp name="HtmlExtractor.expr">#form_[name=formlogin]</stringProp>
-            <stringProp name="HtmlExtractor.attribute">action</stringProp>
-            <stringProp name="HtmlExtractor.default">#NV</stringProp>
-            <stringProp name="HtmlExtractor.match_number"></stringProp>
-            <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
-          </HtmlExtractor>
-          <hashTree/>
-          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ilPostLoginAction" enabled="true">
-            <collectionProp name="Asserion.test_strings">
-              <stringProp name="36139">#NV</stringProp>
-            </collectionProp>
-            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-            <boolProp name="Assertion.assume_success">false</boolProp>
-            <intProp name="Assertion.test_type">8</intProp>
-            <stringProp name="Assertion.scope">variable</stringProp>
-            <stringProp name="Scope.variable">ilPostLoginAction</stringProp>
-          </ResponseAssertion>
-          <hashTree/>
+              <stringProp name="HTTPSampler.domain"></stringProp>
+              <stringProp name="HTTPSampler.port"></stringProp>
+              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+              <stringProp name="HTTPSampler.response_timeout"></stringProp>
+              <stringProp name="HTTPSampler.protocol"></stringProp>
+              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+              <stringProp name="HTTPSampler.path">${PATH}/goto.php?target=root_1</stringProp>
+              <stringProp name="HTTPSampler.method">GET</stringProp>
+              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+              <boolProp name="HTTPSampler.monitor">false</boolProp>
+              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            </HTTPSamplerProxy>
+            <hashTree>
+              <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="ilGetRepositoryHeaderImage" enabled="true">
+                <stringProp name="HtmlExtractor.refname">ilGetRepositoryHeaderImage</stringProp>
+                <stringProp name="HtmlExtractor.expr">#headerimage</stringProp>
+                <stringProp name="HtmlExtractor.attribute">src</stringProp>
+                <stringProp name="HtmlExtractor.default">#NV</stringProp>
+                <stringProp name="HtmlExtractor.match_number"></stringProp>
+                <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
+              </HtmlExtractor>
+              <hashTree/>
+              <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="ilGetRepositoryBreadcrumbUrl" enabled="true">
+                <stringProp name="HtmlExtractor.refname">ilGetRepositoryBreadcrumbUrl</stringProp>
+                <stringProp name="HtmlExtractor.expr">ol.breadcrumb a</stringProp>
+                <stringProp name="HtmlExtractor.attribute">href</stringProp>
+                <stringProp name="HtmlExtractor.default">#NV</stringProp>
+                <stringProp name="HtmlExtractor.match_number"></stringProp>
+                <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
+              </HtmlExtractor>
+              <hashTree/>
+              <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="ilGetRepositoryBreadcrumbContent" enabled="true">
+                <stringProp name="HtmlExtractor.refname">ilGetRepositoryBreadcrumbContent</stringProp>
+                <stringProp name="HtmlExtractor.expr">ol.breadcrumb a</stringProp>
+                <stringProp name="HtmlExtractor.attribute"></stringProp>
+                <stringProp name="HtmlExtractor.default">#NV</stringProp>
+                <stringProp name="HtmlExtractor.match_number"></stringProp>
+                <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
+              </HtmlExtractor>
+              <hashTree/>
+              <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="ilGetRepositoryHeaderContent" enabled="true">
+                <stringProp name="HtmlExtractor.refname">ilGetRepositoryHeaderContent</stringProp>
+                <stringProp name="HtmlExtractor.expr">#il_mhead_t_focus</stringProp>
+                <stringProp name="HtmlExtractor.attribute"></stringProp>
+                <stringProp name="HtmlExtractor.default">#NV</stringProp>
+                <stringProp name="HtmlExtractor.match_number"></stringProp>
+                <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
+              </HtmlExtractor>
+              <hashTree/>
+              <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="ilGetRepositoryNewCat" enabled="true">
+                <stringProp name="HtmlExtractor.refname">ilGetRepositoryNewCat</stringProp>
+                <stringProp name="HtmlExtractor.expr">div.ilNewObjectSelector a#cat</stringProp>
+                <stringProp name="HtmlExtractor.attribute">href</stringProp>
+                <stringProp name="HtmlExtractor.default">#NV</stringProp>
+                <stringProp name="HtmlExtractor.match_number"></stringProp>
+                <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
+              </HtmlExtractor>
+              <hashTree/>
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ilGetRepositoryHeaderImage" enabled="true">
+                <collectionProp name="Asserion.test_strings">
+                  <stringProp name="-167724106">/images/icon_root.svg</stringProp>
+                </collectionProp>
+                <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                <boolProp name="Assertion.assume_success">false</boolProp>
+                <intProp name="Assertion.test_type">16</intProp>
+                <stringProp name="Assertion.scope">variable</stringProp>
+                <stringProp name="Scope.variable">ilGetRepositoryHeaderImage</stringProp>
+                <stringProp name="TestPlan.comments">sanity check if we are on the right page (and not forced to change password, accept user agreement, etc.)</stringProp>
+              </ResponseAssertion>
+              <hashTree/>
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ilGetRepositoryBreadcrumbUrl" enabled="true">
+                <collectionProp name="Asserion.test_strings">
+                  <stringProp name="-1449016747">ilias\.php\?ref\_id\=1\&amp;cmd\=frameset\&amp;cmdClass\=ilrepositorygui\&amp;cmdNode\=[^&amp;]*\&amp;baseClass\=ilRepositoryGUI1</stringProp>
+                </collectionProp>
+                <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                <boolProp name="Assertion.assume_success">false</boolProp>
+                <intProp name="Assertion.test_type">6</intProp>
+                <stringProp name="Assertion.scope">variable</stringProp>
+                <stringProp name="Scope.variable">ilGetRepositoryBreadcrumbUrl</stringProp>
+              </ResponseAssertion>
+              <hashTree/>
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ilGetRepositoryBreadcrumbContent" enabled="true">
+                <collectionProp name="Asserion.test_strings">
+                  <stringProp name="-2240617">${ilGetRepositoryHeaderContent}</stringProp>
+                </collectionProp>
+                <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                <boolProp name="Assertion.assume_success">false</boolProp>
+                <intProp name="Assertion.test_type">8</intProp>
+                <stringProp name="Assertion.scope">variable</stringProp>
+                <stringProp name="Scope.variable">ilGetRepositoryBreadcrumbContent</stringProp>
+                <stringProp name="TestPlan.comments">sanity check, that we picked the right breadcrumb (must match the header)</stringProp>
+              </ResponseAssertion>
+              <hashTree/>
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ilGetRepositoryHeaderContent" enabled="true">
+                <collectionProp name="Asserion.test_strings">
+                  <stringProp name="-856324859">(?!#NV).+</stringProp>
+                </collectionProp>
+                <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                <boolProp name="Assertion.assume_success">false</boolProp>
+                <intProp name="Assertion.test_type">1</intProp>
+                <stringProp name="Assertion.scope">variable</stringProp>
+                <stringProp name="Scope.variable">ilGetRepositoryHeaderContent</stringProp>
+              </ResponseAssertion>
+              <hashTree/>
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ilGetRepositoryNewCat" enabled="true">
+                <collectionProp name="Asserion.test_strings">
+                  <stringProp name="1649786606">ilias\.php\?.+</stringProp>
+                </collectionProp>
+                <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                <boolProp name="Assertion.assume_success">false</boolProp>
+                <intProp name="Assertion.test_type">1</intProp>
+                <stringProp name="Assertion.scope">variable</stringProp>
+                <stringProp name="Scope.variable">ilGetRepositoryNewCat</stringProp>
+              </ResponseAssertion>
+              <hashTree/>
+            </hashTree>
+            <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="5x New Category (nested)" enabled="true">
+              <boolProp name="LoopController.continue_forever">true</boolProp>
+              <stringProp name="LoopController.loops">5</stringProp>
+            </LoopController>
+            <hashTree>
+              <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="NewCategoryAction" enabled="true">
+                <stringProp name="cacheKey"></stringProp>
+                <stringProp name="filename"></stringProp>
+                <stringProp name="parameters"></stringProp>
+                <stringProp name="script">NewCategoryAction = vars.get(&quot;ilPostNewCategoryNewCat&quot;);
+
+if (NewCategoryAction == null || NewCategoryAction == &quot;#NV&quot;) {
+	NewCategoryAction = vars.get(&quot;ilGetRepositoryNewCat&quot;);
+}
+
+vars.put(&quot;NewCategoryAction&quot;, NewCategoryAction);</stringProp>
+                <stringProp name="scriptLanguage">jexl</stringProp>
+              </JSR223PreProcessor>
+              <hashTree/>
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET NewCategory" enabled="true">
+                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+                  <collectionProp name="Arguments.arguments"/>
+                </elementProp>
+                <stringProp name="HTTPSampler.domain"></stringProp>
+                <stringProp name="HTTPSampler.port"></stringProp>
+                <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                <stringProp name="HTTPSampler.response_timeout"></stringProp>
+                <stringProp name="HTTPSampler.protocol"></stringProp>
+                <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                <stringProp name="HTTPSampler.path">${PATH}/${NewCategoryAction}</stringProp>
+                <stringProp name="HTTPSampler.method">GET</stringProp>
+                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                <boolProp name="HTTPSampler.monitor">false</boolProp>
+                <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+              </HTTPSamplerProxy>
+              <hashTree>
+                <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="ilGetNewCategoryAction" enabled="true">
+                  <stringProp name="HtmlExtractor.refname">ilGetNewCategoryAction</stringProp>
+                  <stringProp name="HtmlExtractor.expr">div#accordion__1:nth-child(1) form#form_</stringProp>
+                  <stringProp name="HtmlExtractor.attribute">action</stringProp>
+                  <stringProp name="HtmlExtractor.default">#NV</stringProp>
+                  <stringProp name="HtmlExtractor.match_number"></stringProp>
+                  <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
+                </HtmlExtractor>
+                <hashTree/>
+                <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="ilGetNewCategoryTitle" enabled="true">
+                  <stringProp name="HtmlExtractor.refname">ilGetNewCategoryTitle</stringProp>
+                  <stringProp name="HtmlExtractor.expr">div#accordion__1:nth-child(1) form#form_ input#title</stringProp>
+                  <stringProp name="HtmlExtractor.attribute">name</stringProp>
+                  <stringProp name="HtmlExtractor.default">#NV</stringProp>
+                  <stringProp name="HtmlExtractor.match_number"></stringProp>
+                  <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
+                </HtmlExtractor>
+                <hashTree/>
+                <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="ilGetNewCategoryDescription" enabled="true">
+                  <stringProp name="HtmlExtractor.refname">ilGetNewCategoryDescription</stringProp>
+                  <stringProp name="HtmlExtractor.expr">div#accordion__1:nth-child(1) form#form_ textarea#desc</stringProp>
+                  <stringProp name="HtmlExtractor.attribute">name</stringProp>
+                  <stringProp name="HtmlExtractor.default">#NV</stringProp>
+                  <stringProp name="HtmlExtractor.match_number"></stringProp>
+                  <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
+                </HtmlExtractor>
+                <hashTree/>
+                <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="ilGetNewCategorySubmit" enabled="true">
+                  <stringProp name="HtmlExtractor.refname">ilGetNewCategorySubmit</stringProp>
+                  <stringProp name="HtmlExtractor.expr">div#accordion__1:nth-child(1) form#form_ input[type=submit][name=&quot;cmd[save]&quot;]</stringProp>
+                  <stringProp name="HtmlExtractor.attribute">name</stringProp>
+                  <stringProp name="HtmlExtractor.default">#NV</stringProp>
+                  <stringProp name="HtmlExtractor.match_number"></stringProp>
+                  <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
+                </HtmlExtractor>
+                <hashTree/>
+                <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="ilGetNewCategorySubmitV" enabled="true">
+                  <stringProp name="HtmlExtractor.refname">ilGetNewCategorySubmitV</stringProp>
+                  <stringProp name="HtmlExtractor.expr">div#accordion__1:nth-child(1) form#form_ input[type=submit][name=&quot;cmd[save]&quot;]</stringProp>
+                  <stringProp name="HtmlExtractor.attribute">value</stringProp>
+                  <stringProp name="HtmlExtractor.default">#NV</stringProp>
+                  <stringProp name="HtmlExtractor.match_number"></stringProp>
+                  <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
+                </HtmlExtractor>
+                <hashTree/>
+                <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ilGetNewCategoryAction" enabled="true">
+                  <collectionProp name="Asserion.test_strings">
+                    <stringProp name="36139">#NV</stringProp>
+                    <stringProp name="0"></stringProp>
+                  </collectionProp>
+                  <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                  <boolProp name="Assertion.assume_success">false</boolProp>
+                  <intProp name="Assertion.test_type">12</intProp>
+                  <stringProp name="Assertion.scope">variable</stringProp>
+                  <stringProp name="Scope.variable">ilGetNewCategoryAction</stringProp>
+                </ResponseAssertion>
+                <hashTree/>
+                <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ilGetNewCategoryTitle" enabled="true">
+                  <collectionProp name="Asserion.test_strings">
+                    <stringProp name="36139">#NV</stringProp>
+                    <stringProp name="0"></stringProp>
+                  </collectionProp>
+                  <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                  <boolProp name="Assertion.assume_success">false</boolProp>
+                  <intProp name="Assertion.test_type">12</intProp>
+                  <stringProp name="Assertion.scope">variable</stringProp>
+                  <stringProp name="Scope.variable">ilGetNewCategoryTitle</stringProp>
+                </ResponseAssertion>
+                <hashTree/>
+                <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ilGetNewCategoryDescription" enabled="true">
+                  <collectionProp name="Asserion.test_strings">
+                    <stringProp name="36139">#NV</stringProp>
+                    <stringProp name="0"></stringProp>
+                  </collectionProp>
+                  <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                  <boolProp name="Assertion.assume_success">false</boolProp>
+                  <intProp name="Assertion.test_type">12</intProp>
+                  <stringProp name="Assertion.scope">variable</stringProp>
+                  <stringProp name="Scope.variable">ilGetNewCategoryDescription</stringProp>
+                </ResponseAssertion>
+                <hashTree/>
+                <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ilGetNewCategorySubmit" enabled="true">
+                  <collectionProp name="Asserion.test_strings">
+                    <stringProp name="36139">#NV</stringProp>
+                    <stringProp name="0"></stringProp>
+                  </collectionProp>
+                  <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                  <boolProp name="Assertion.assume_success">false</boolProp>
+                  <intProp name="Assertion.test_type">12</intProp>
+                  <stringProp name="Assertion.scope">variable</stringProp>
+                  <stringProp name="Scope.variable">ilGetNewCategorySubmit</stringProp>
+                </ResponseAssertion>
+                <hashTree/>
+                <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ilGetNewCategorySubmitV" enabled="true">
+                  <collectionProp name="Asserion.test_strings">
+                    <stringProp name="36139">#NV</stringProp>
+                    <stringProp name="0"></stringProp>
+                  </collectionProp>
+                  <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                  <boolProp name="Assertion.assume_success">false</boolProp>
+                  <intProp name="Assertion.test_type">12</intProp>
+                  <stringProp name="Assertion.scope">variable</stringProp>
+                  <stringProp name="Scope.variable">ilGetNewCategorySubmitV</stringProp>
+                </ResponseAssertion>
+                <hashTree/>
+              </hashTree>
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST NewCategory" enabled="true">
+                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+                  <collectionProp name="Arguments.arguments">
+                    <elementProp name="${ilGetNewCategoryTitle}" elementType="HTTPArgument">
+                      <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                      <stringProp name="Argument.value">${__samplerName} @ ${__time(Y-M-D_H:M:S)}</stringProp>
+                      <stringProp name="Argument.metadata">=</stringProp>
+                      <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                      <stringProp name="Argument.name">${ilGetNewCategoryTitle}</stringProp>
+                    </elementProp>
+                    <elementProp name="${ilGetNewCategoryDescription}" elementType="HTTPArgument">
+                      <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                      <stringProp name="Argument.value">created by jmeter testplan ${__TestPlanName}</stringProp>
+                      <stringProp name="Argument.metadata">=</stringProp>
+                      <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                      <stringProp name="Argument.name">${ilGetNewCategoryDescription}</stringProp>
+                    </elementProp>
+                    <elementProp name="${ilGetNewCategorySubmit}" elementType="HTTPArgument">
+                      <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                      <stringProp name="Argument.value">${ilGetNewCategorySubmitV}</stringProp>
+                      <stringProp name="Argument.metadata">=</stringProp>
+                      <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                      <stringProp name="Argument.name">${ilGetNewCategorySubmit}</stringProp>
+                    </elementProp>
+                  </collectionProp>
+                </elementProp>
+                <stringProp name="HTTPSampler.domain"></stringProp>
+                <stringProp name="HTTPSampler.port"></stringProp>
+                <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                <stringProp name="HTTPSampler.response_timeout"></stringProp>
+                <stringProp name="HTTPSampler.protocol"></stringProp>
+                <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                <stringProp name="HTTPSampler.path">${PATH}/${ilGetNewCategoryAction}</stringProp>
+                <stringProp name="HTTPSampler.method">POST</stringProp>
+                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                <boolProp name="HTTPSampler.monitor">false</boolProp>
+                <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+              </HTTPSamplerProxy>
+              <hashTree>
+                <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="FatalError" enabled="true">
+                  <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+                  <stringProp name="RegexExtractor.refname">FatalError</stringProp>
+                  <stringProp name="RegexExtractor.regex">\&lt;b\&gt;Fatal error\&lt;\/b\&gt;\:\s*(.*)\&lt;br \/\&gt;</stringProp>
+                  <stringProp name="RegexExtractor.template">$1$</stringProp>
+                  <stringProp name="RegexExtractor.default">#NV</stringProp>
+                  <stringProp name="RegexExtractor.match_number">1</stringProp>
+                </RegexExtractor>
+                <hashTree/>
+                <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="ilPostNewCategoryHeaderImage" enabled="true">
+                  <stringProp name="HtmlExtractor.refname">ilPostNewCategoryHeaderImage</stringProp>
+                  <stringProp name="HtmlExtractor.expr">#headerimage</stringProp>
+                  <stringProp name="HtmlExtractor.attribute">src</stringProp>
+                  <stringProp name="HtmlExtractor.default">#NV</stringProp>
+                  <stringProp name="HtmlExtractor.match_number"></stringProp>
+                  <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
+                </HtmlExtractor>
+                <hashTree/>
+                <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="ilPostNewCategoryNewCat" enabled="true">
+                  <stringProp name="HtmlExtractor.refname">ilPostNewCategoryNewCat</stringProp>
+                  <stringProp name="HtmlExtractor.expr">div.ilNewObjectSelector a#cat</stringProp>
+                  <stringProp name="HtmlExtractor.attribute">href</stringProp>
+                  <stringProp name="HtmlExtractor.default">#NV</stringProp>
+                  <stringProp name="HtmlExtractor.match_number"></stringProp>
+                  <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
+                </HtmlExtractor>
+                <hashTree/>
+                <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="FatalError" enabled="true">
+                  <collectionProp name="Asserion.test_strings">
+                    <stringProp name="36139">#NV</stringProp>
+                  </collectionProp>
+                  <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                  <boolProp name="Assertion.assume_success">false</boolProp>
+                  <intProp name="Assertion.test_type">8</intProp>
+                  <stringProp name="Assertion.scope">variable</stringProp>
+                  <stringProp name="Scope.variable">FatalError</stringProp>
+                </ResponseAssertion>
+                <hashTree/>
+                <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ilPostNewCategoryHeaderImage" enabled="true">
+                  <collectionProp name="Asserion.test_strings">
+                    <stringProp name="-1524009938">/images/icon_cat.svg</stringProp>
+                  </collectionProp>
+                  <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                  <boolProp name="Assertion.assume_success">false</boolProp>
+                  <intProp name="Assertion.test_type">16</intProp>
+                  <stringProp name="Assertion.scope">variable</stringProp>
+                  <stringProp name="Scope.variable">ilPostNewCategoryHeaderImage</stringProp>
+                  <stringProp name="TestPlan.comments">sanity check if we are on the right page (and not forced to change password, accept user agreement, etc.)</stringProp>
+                </ResponseAssertion>
+                <hashTree/>
+                <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ilPostNewCategoryNewCat" enabled="true">
+                  <collectionProp name="Asserion.test_strings">
+                    <stringProp name="1649786606">ilias\.php\?.+</stringProp>
+                  </collectionProp>
+                  <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                  <boolProp name="Assertion.assume_success">false</boolProp>
+                  <intProp name="Assertion.test_type">1</intProp>
+                  <stringProp name="Assertion.scope">variable</stringProp>
+                  <stringProp name="Scope.variable">ilPostNewCategoryNewCat</stringProp>
+                </ResponseAssertion>
+                <hashTree/>
+                <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="not error.php" enabled="true">
+                  <collectionProp name="Asserion.test_strings">
+                    <stringProp name="845794093">.*\/error\.php</stringProp>
+                  </collectionProp>
+                  <stringProp name="Assertion.test_field">Assertion.sample_label</stringProp>
+                  <boolProp name="Assertion.assume_success">false</boolProp>
+                  <intProp name="Assertion.test_type">6</intProp>
+                </ResponseAssertion>
+                <hashTree/>
+              </hashTree>
+              <ResultAction guiclass="ResultActionGui" testclass="ResultAction" testname="On Error Start Next Thread Loop" enabled="true">
+                <intProp name="OnError.action">4</intProp>
+              </ResultAction>
+              <hashTree/>
+              <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Sleep" enabled="true">
+                <stringProp name="ConstantTimer.delay">10</stringProp>
+              </ConstantTimer>
+              <hashTree/>
+            </hashTree>
+          </hashTree>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET Repository" enabled="true">
-          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-            <collectionProp name="Arguments.arguments"/>
-          </elementProp>
-          <stringProp name="HTTPSampler.domain"></stringProp>
-          <stringProp name="HTTPSampler.port"></stringProp>
-          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-          <stringProp name="HTTPSampler.response_timeout"></stringProp>
-          <stringProp name="HTTPSampler.protocol"></stringProp>
-          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">${PATH}/goto.php?target=root_1</stringProp>
-          <stringProp name="HTTPSampler.method">GET</stringProp>
-          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-          <boolProp name="HTTPSampler.monitor">false</boolProp>
-          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-        </HTTPSamplerProxy>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Desktop" enabled="true"/>
         <hashTree>
-          <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="ilGetRepositoryHeaderImage" enabled="true">
-            <stringProp name="HtmlExtractor.refname">ilGetRepositoryHeaderImage</stringProp>
-            <stringProp name="HtmlExtractor.expr">#headerimage</stringProp>
-            <stringProp name="HtmlExtractor.attribute">src</stringProp>
-            <stringProp name="HtmlExtractor.default">#NV</stringProp>
-            <stringProp name="HtmlExtractor.match_number"></stringProp>
-            <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
-          </HtmlExtractor>
-          <hashTree/>
-          <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="ilGetRepositoryBreadcrumbUrl" enabled="true">
-            <stringProp name="HtmlExtractor.refname">ilGetRepositoryBreadcrumbUrl</stringProp>
-            <stringProp name="HtmlExtractor.expr">ol.breadcrumb a</stringProp>
-            <stringProp name="HtmlExtractor.attribute">href</stringProp>
-            <stringProp name="HtmlExtractor.default">#NV</stringProp>
-            <stringProp name="HtmlExtractor.match_number"></stringProp>
-            <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
-          </HtmlExtractor>
-          <hashTree/>
-          <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="ilGetRepositoryBreadcrumbContent" enabled="true">
-            <stringProp name="HtmlExtractor.refname">ilGetRepositoryBreadcrumbContent</stringProp>
-            <stringProp name="HtmlExtractor.expr">ol.breadcrumb a</stringProp>
-            <stringProp name="HtmlExtractor.attribute"></stringProp>
-            <stringProp name="HtmlExtractor.default">#NV</stringProp>
-            <stringProp name="HtmlExtractor.match_number"></stringProp>
-            <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
-          </HtmlExtractor>
-          <hashTree/>
-          <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="ilGetRepositoryHeaderContent" enabled="true">
-            <stringProp name="HtmlExtractor.refname">ilGetRepositoryHeaderContent</stringProp>
-            <stringProp name="HtmlExtractor.expr">#il_mhead_t_focus</stringProp>
-            <stringProp name="HtmlExtractor.attribute"></stringProp>
-            <stringProp name="HtmlExtractor.default">#NV</stringProp>
-            <stringProp name="HtmlExtractor.match_number"></stringProp>
-            <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
-          </HtmlExtractor>
-          <hashTree/>
-          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ilGetRepositoryHeaderImage" enabled="true">
-            <collectionProp name="Asserion.test_strings">
-              <stringProp name="-167724106">/images/icon_root.svg</stringProp>
-            </collectionProp>
-            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-            <boolProp name="Assertion.assume_success">false</boolProp>
-            <intProp name="Assertion.test_type">16</intProp>
-            <stringProp name="Assertion.scope">variable</stringProp>
-            <stringProp name="Scope.variable">ilGetRepositoryHeaderImage</stringProp>
-            <stringProp name="TestPlan.comments">sanity check if we are on the right page (and not forced to change password, accept user agreement, etc.)</stringProp>
-          </ResponseAssertion>
-          <hashTree/>
-          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ilGetRepositoryBreadcrumbUrl" enabled="true">
-            <collectionProp name="Asserion.test_strings">
-              <stringProp name="-1449016747">ilias\.php\?ref\_id\=1\&amp;cmd\=frameset\&amp;cmdClass\=ilrepositorygui\&amp;cmdNode\=[^&amp;]*\&amp;baseClass\=ilRepositoryGUI1</stringProp>
-            </collectionProp>
-            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-            <boolProp name="Assertion.assume_success">false</boolProp>
-            <intProp name="Assertion.test_type">6</intProp>
-            <stringProp name="Assertion.scope">variable</stringProp>
-            <stringProp name="Scope.variable">ilGetRepositoryBreadcrumbUrl</stringProp>
-          </ResponseAssertion>
-          <hashTree/>
-          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ilGetRepositoryBreadcrumbContent" enabled="true">
-            <collectionProp name="Asserion.test_strings">
-              <stringProp name="-2240617">${ilGetRepositoryHeaderContent}</stringProp>
-            </collectionProp>
-            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-            <boolProp name="Assertion.assume_success">false</boolProp>
-            <intProp name="Assertion.test_type">8</intProp>
-            <stringProp name="Assertion.scope">variable</stringProp>
-            <stringProp name="Scope.variable">ilGetRepositoryBreadcrumbContent</stringProp>
-            <stringProp name="TestPlan.comments">sanity check, that we picked the right breadcrumb (must match the header)</stringProp>
-          </ResponseAssertion>
-          <hashTree/>
-          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ilGetRepositoryHeaderContent" enabled="true">
-            <collectionProp name="Asserion.test_strings">
-              <stringProp name="36139">#NV</stringProp>
-              <stringProp name="0"></stringProp>
-            </collectionProp>
-            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-            <boolProp name="Assertion.assume_success">false</boolProp>
-            <intProp name="Assertion.test_type">12</intProp>
-            <stringProp name="Assertion.scope">variable</stringProp>
-            <stringProp name="Scope.variable">ilGetRepositoryHeaderContent</stringProp>
-          </ResponseAssertion>
-          <hashTree/>
-        </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET Selected Items" enabled="true">
-          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-            <collectionProp name="Arguments.arguments"/>
-          </elementProp>
-          <stringProp name="HTTPSampler.domain"></stringProp>
-          <stringProp name="HTTPSampler.port"></stringProp>
-          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-          <stringProp name="HTTPSampler.response_timeout"></stringProp>
-          <stringProp name="HTTPSampler.protocol"></stringProp>
-          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">${PATH}/ilias.php?baseClass=ilPersonalDesktopGUI&amp;cmd=jumpToSelectedItems#</stringProp>
-          <stringProp name="HTTPSampler.method">GET</stringProp>
-          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-          <boolProp name="HTTPSampler.monitor">false</boolProp>
-          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-        </HTTPSamplerProxy>
-        <hashTree>
-          <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="ilGetSelectedItemsBlHead" enabled="true">
-            <stringProp name="HtmlExtractor.refname">ilGetSelectedItemsBlHead</stringProp>
-            <stringProp name="HtmlExtractor.expr">a#block_pditems_0_blhead.ilAccAnchor</stringProp>
-            <stringProp name="HtmlExtractor.attribute">name</stringProp>
-            <stringProp name="HtmlExtractor.default">#NV</stringProp>
-            <stringProp name="HtmlExtractor.match_number"></stringProp>
-            <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
-          </HtmlExtractor>
-          <hashTree/>
-          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ilGetSelectedItemsBlHead" enabled="true">
-            <collectionProp name="Asserion.test_strings">
-              <stringProp name="1518881310">block_pditems_0_blhead</stringProp>
-            </collectionProp>
-            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-            <boolProp name="Assertion.assume_success">false</boolProp>
-            <intProp name="Assertion.test_type">8</intProp>
-            <stringProp name="Assertion.scope">variable</stringProp>
-            <stringProp name="Scope.variable">ilGetSelectedItemsBlHead</stringProp>
-            <stringProp name="TestPlan.comments">sanity check if we are on the right page (and not forced to change password, accept user agreement, etc.)</stringProp>
-          </ResponseAssertion>
-          <hashTree/>
-        </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET Mail" enabled="true">
-          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-            <collectionProp name="Arguments.arguments"/>
-          </elementProp>
-          <stringProp name="HTTPSampler.domain"></stringProp>
-          <stringProp name="HTTPSampler.port"></stringProp>
-          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-          <stringProp name="HTTPSampler.response_timeout"></stringProp>
-          <stringProp name="HTTPSampler.protocol"></stringProp>
-          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">${PATH}/ilias.php?baseClass=ilMailGUI</stringProp>
-          <stringProp name="HTTPSampler.method">GET</stringProp>
-          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-          <boolProp name="HTTPSampler.monitor">false</boolProp>
-          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-        </HTTPSamplerProxy>
-        <hashTree>
-          <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="ilGetMailHeaderImage" enabled="true">
-            <stringProp name="HtmlExtractor.refname">ilGetMailHeaderImage</stringProp>
-            <stringProp name="HtmlExtractor.expr">#headerimage</stringProp>
-            <stringProp name="HtmlExtractor.attribute">src</stringProp>
-            <stringProp name="HtmlExtractor.default">#NV</stringProp>
-            <stringProp name="HtmlExtractor.match_number"></stringProp>
-            <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
-          </HtmlExtractor>
-          <hashTree/>
-          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ilGetMailHeaderImage" enabled="true">
-            <collectionProp name="Asserion.test_strings">
-              <stringProp name="-11153909">/images/icon_mail.svg</stringProp>
-            </collectionProp>
-            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-            <boolProp name="Assertion.assume_success">false</boolProp>
-            <intProp name="Assertion.test_type">16</intProp>
-            <stringProp name="Assertion.scope">variable</stringProp>
-            <stringProp name="Scope.variable">ilGetMailHeaderImage</stringProp>
-            <stringProp name="TestPlan.comments">sanity check if we are on the right page (and not forced to change password, accept user agreement, etc.)</stringProp>
-          </ResponseAssertion>
-          <hashTree/>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET Selected Items" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+              <collectionProp name="Arguments.arguments"/>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">${PATH}/ilias.php?baseClass=ilPersonalDesktopGUI&amp;cmd=jumpToSelectedItems#</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <boolProp name="HTTPSampler.monitor">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="ilGetSelectedItemsBlHead" enabled="true">
+              <stringProp name="HtmlExtractor.refname">ilGetSelectedItemsBlHead</stringProp>
+              <stringProp name="HtmlExtractor.expr">a#block_pditems_0_blhead.ilAccAnchor</stringProp>
+              <stringProp name="HtmlExtractor.attribute">name</stringProp>
+              <stringProp name="HtmlExtractor.default">#NV</stringProp>
+              <stringProp name="HtmlExtractor.match_number"></stringProp>
+              <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
+            </HtmlExtractor>
+            <hashTree/>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ilGetSelectedItemsBlHead" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="1518881310">block_pditems_0_blhead</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">8</intProp>
+              <stringProp name="Assertion.scope">variable</stringProp>
+              <stringProp name="Scope.variable">ilGetSelectedItemsBlHead</stringProp>
+              <stringProp name="TestPlan.comments">sanity check if we are on the right page (and not forced to change password, accept user agreement, etc.)</stringProp>
+            </ResponseAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET Mail" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+              <collectionProp name="Arguments.arguments"/>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">${PATH}/ilias.php?baseClass=ilMailGUI</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <boolProp name="HTTPSampler.monitor">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="ilGetMailHeaderImage" enabled="true">
+              <stringProp name="HtmlExtractor.refname">ilGetMailHeaderImage</stringProp>
+              <stringProp name="HtmlExtractor.expr">#headerimage</stringProp>
+              <stringProp name="HtmlExtractor.attribute">src</stringProp>
+              <stringProp name="HtmlExtractor.default">#NV</stringProp>
+              <stringProp name="HtmlExtractor.match_number"></stringProp>
+              <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
+            </HtmlExtractor>
+            <hashTree/>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ilGetMailHeaderImage" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="-716001883">/images/icon_mhkhkjail.svg</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">16</intProp>
+              <stringProp name="Assertion.scope">variable</stringProp>
+              <stringProp name="Scope.variable">ilGetMailHeaderImage</stringProp>
+              <stringProp name="TestPlan.comments">sanity check if we are on the right page (and not forced to change password, accept user agreement, etc.)</stringProp>
+            </ResponseAssertion>
+            <hashTree/>
+          </hashTree>
         </hashTree>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET Logout" enabled="true">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
@@ -727,45 +1175,11 @@
           </ResponseAssertion>
           <hashTree/>
         </hashTree>
-        <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="DEBUG: Snapshot Variables" enabled="false">
+        <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="DEBUG: Snapshot Variables" enabled="true">
           <boolProp name="displayJMeterProperties">false</boolProp>
           <boolProp name="displayJMeterVariables">true</boolProp>
           <boolProp name="displaySystemProperties">false</boolProp>
         </DebugSampler>
-        <hashTree/>
-        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="DEBUG: Inspect Results" enabled="false">
-          <boolProp name="ResultCollector.error_logging">false</boolProp>
-          <objProp>
-            <name>saveConfig</name>
-            <value class="SampleSaveConfiguration">
-              <time>false</time>
-              <latency>false</latency>
-              <timestamp>true</timestamp>
-              <success>true</success>
-              <label>false</label>
-              <code>true</code>
-              <message>false</message>
-              <threadName>true</threadName>
-              <dataType>false</dataType>
-              <encoding>false</encoding>
-              <assertions>false</assertions>
-              <subresults>false</subresults>
-              <responseData>true</responseData>
-              <samplerData>false</samplerData>
-              <xml>true</xml>
-              <fieldNames>false</fieldNames>
-              <responseHeaders>true</responseHeaders>
-              <requestHeaders>true</requestHeaders>
-              <responseDataOnError>false</responseDataOnError>
-              <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
-              <assertionsResultsToSave>0</assertionsResultsToSave>
-              <url>true</url>
-              <sampleCount>true</sampleCount>
-            </value>
-          </objProp>
-          <stringProp name="TestPlan.comments">temporarily place this beneath any element you want to inspect</stringProp>
-          <stringProp name="filename">out/inspect_results.xml</stringProp>
-        </ResultCollector>
         <hashTree/>
         <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="Transaction Controller" enabled="false">
           <boolProp name="TransactionController.includeTimers">false</boolProp>
@@ -802,7 +1216,7 @@
         </SystemSampler>
         <hashTree/>
       </hashTree>
-      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="DEBUG: Inspect Results" enabled="false">
+      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="DEBUG: Inspect Results" enabled="true">
         <boolProp name="ResultCollector.error_logging">false</boolProp>
         <objProp>
           <name>saveConfig</name>
@@ -833,7 +1247,7 @@
           </value>
         </objProp>
         <stringProp name="TestPlan.comments">temporarily place this beneath any element you want to inspect</stringProp>
-        <stringProp name="filename">out/inspect_variables.xml</stringProp>
+        <stringProp name="filename">out/inspect_results.xml</stringProp>
       </ResultCollector>
       <hashTree/>
       <ResultCollector guiclass="StatVisualizer" testclass="ResultCollector" testname="DEV: Aggregate Report" enabled="false">

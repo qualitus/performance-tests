@@ -10,7 +10,7 @@ In order to use the testsuite, please import a customized `setup/var/user_import
 
 ## Customize ILIAS user accounts
 
-It is strongly recommended that you change the passwords of the jmeter users  as follows.
+**Important**: It is strongly recommended that you change the passwords of the jmeter users as follows.
 
 Choose a strong password and create a md5-hash (http://www.md5-generator.de/). Then execute these steps at the root of the repository (substitute `__STRONG_PASSWORD__` and `__MD5_HASH__`)
 
@@ -21,8 +21,11 @@ cp setup/var/user_import.xml.dist setup/var/user_import.xml
 sed s/09e705636e39b8d72023b3f18251de11/__MD5_HASH__/ setup/var/user_import.xml
 ```
 
+**Note**: You can do extended tests, if you choose to grant administrator permissions
+(just map the roles user->administrator during import).
+
 * Import these users to ILIAS (administration > user accounts > import users > user_import.xml)
-* Deactivate the setting "users must change their password on first login" (can be reactivated once theses users have logged in)
+* Deactivate the setting "users must change their password on first login" (can be reactivated once these users have logged in)
 * Deactivate the user agreement (or login with these users and accept the agreement)
 
 ### Alternative User Data
