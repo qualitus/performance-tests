@@ -10,6 +10,7 @@
 function load_config {
   # defines a bunch of shell variables - see the include for details
   source config/jmeter.sh.inc || exit
+  source config/jmeter-master.sh.inc || exit
 }
 
 function main {

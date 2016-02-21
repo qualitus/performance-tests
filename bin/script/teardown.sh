@@ -9,7 +9,7 @@
 
 function load_config {
   # defines a bunch of shell variables - see the include for details
-  source config/testsuite.sh.inc || exit
+  source config/jmeter.sh.inc || exit
 }
 
 function main {
