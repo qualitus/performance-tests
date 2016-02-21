@@ -45,12 +45,9 @@ JMETER_PROPERTIES=(
   "CREDENTIALS_CSV=$WORK_DIR/config/users_sigperf.csv"
   #"CREDENTIALS_CSV=/home/svnuser/performance-tests/users_sigperf.csv"
   "IS_ADMIN=true" # default: false
-  "remote_hosts=127.0.0.1:24000" # comma separated list of host[:port] (the port defaults to 1099)
-  "client.rmi.localport=25000"
 )
 
 # Each of these KEY=VALUE pairs will be passed to jMeter
 # via `--systemproperty KEY=VALUE`
 SYSTEM_PROPERTIES=(
-  "java.rmi.server.hostname=127.0.0.1" # set this to localhost, if you want to use port-forwarding via ssh
 )

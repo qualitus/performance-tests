@@ -10,6 +10,7 @@
 function load_config {
   # defines a bunch of shell variables - see the include for details
   source config/jmeter.sh.inc || exit
+  source config/jmeter-master.sh.inc || exit
 }
 
 function main {
@@ -20,6 +21,7 @@ function main {
 
   $JMETER_CMD \
     --nongui \
+    --runremote \
     --logfile $RESULTS \
     --testfile $TESTPLAN \
     --jmeterlogfile $LOG \
@@ -74,10 +76,6 @@ function main {
 		# 	the jmeter home directory to use
 	  #--remoteexit \
 		# 	Exit the remote servers at end of test (non-GUI)
-
-    show $RESULTS \
-      $SCRIPT_STDOUT \
-      $SCRIPT_STDERR
 }
 
 function parse_jmeterprops {
@@ -89,15 +87,6 @@ function parse_jmeterprops {
 function parse_systemprops {
   for P in $@; do
     echo "--systemproperty ${P}"
-  done
-}
-
-function indent() { sed 's/^/  /'; }
-
-function show {
-  for file in $@; do
-    echo -e "\n#### `basename ${file}` (${file}):"
-    cat $file | indent
   done
 }
 
