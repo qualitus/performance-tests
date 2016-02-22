@@ -18,16 +18,8 @@ function main {
   append_script_out
   echo -e "\n## Begin Teardown (${WORK_DIR})"
 
-  # OPTIONAL STEPS:
-  # render some graphs etc.
-  if [[ $RESULTS == *.xml ]]; then
-    echo "Result format is XML"
-    REPORT=${OUT_DIR}/xml-report.html
-    echo "Generating $(basename $REPORT) ($REPORT)"
-    xsltproc -o ${REPORT} bin/script/report/xml2html.xsl $RESULTS
-  elif [[ $RESULTS == *.csv ]]; then
-    echo "Result format is CSV"
-  fi
+  # NOTE: report generation has to be delayed, because the (xml-)file
+  # is still being written!
 
   echo "## End Teardown"
   sleep 1

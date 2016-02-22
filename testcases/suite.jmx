@@ -306,7 +306,7 @@
           </ResponseAssertion>
           <hashTree/>
         </hashTree>
-        <SystemSampler guiclass="SystemSamplerGui" testclass="SystemSampler" testname="shell: STARTUP" enabled="true">
+        <SystemSampler guiclass="SystemSamplerGui" testclass="SystemSampler" testname="shell: STARTUP" enabled="false">
           <boolProp name="SystemSampler.checkReturnCode">true</boolProp>
           <stringProp name="SystemSampler.expectedReturnCode">0</stringProp>
           <stringProp name="SystemSampler.command">${ON_STARTUP}</stringProp>
@@ -1121,7 +1121,7 @@ vars.put(&quot;NewCategoryAction&quot;, NewCategoryAction);</stringProp>
             <hashTree/>
             <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ilGetMailHeaderImage" enabled="true">
               <collectionProp name="Asserion.test_strings">
-                <stringProp name="-716001883">/images/icon_mhkhkjail.svg</stringProp>
+                <stringProp name="-11153909">/images/icon_mail.svg</stringProp>
               </collectionProp>
               <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
               <boolProp name="Assertion.assume_success">false</boolProp>
@@ -1202,7 +1202,7 @@ vars.put(&quot;NewCategoryAction&quot;, NewCategoryAction);</stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
       </PostThreadGroup>
       <hashTree>
-        <SystemSampler guiclass="SystemSamplerGui" testclass="SystemSampler" testname="shell: TEARDOWN" enabled="true">
+        <SystemSampler guiclass="SystemSamplerGui" testclass="SystemSampler" testname="shell: TEARDOWN" enabled="false">
           <boolProp name="SystemSampler.checkReturnCode">true</boolProp>
           <stringProp name="SystemSampler.expectedReturnCode">0</stringProp>
           <stringProp name="SystemSampler.command">${ON_TEARDOWN}</stringProp>

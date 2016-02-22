@@ -30,6 +30,8 @@ function main {
 	  $(parse_systemprops ${SYSTEM_PROPERTIES[*]}) \
     $@
 
+  EXIT=$?
+
   kill $PID
 
     # Legend:
@@ -77,9 +79,11 @@ function main {
 	  #--remoteexit \
 		# 	Exit the remote servers at end of test (non-GUI)
 
-    show $RESULTS \
-      $SCRIPT_STDOUT \
-      $SCRIPT_STDERR
+  show $RESULTS \
+    $SCRIPT_STDOUT \
+    $SCRIPT_STDERR
+
+  exit $EXIT
 }
 
 function parse_jmeterprops {

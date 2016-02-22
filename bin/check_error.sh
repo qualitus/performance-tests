@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Clear ${OUT_DIR}
+# Run jMeter in CLI / non-GUI mode
 #
 # NOTE:
 # * This script `cd`s into the testsuite root directory (see very last line)
@@ -15,21 +15,35 @@ function load_config {
 function main {
   load_config $@
 
-  echo "Clear $(basename $OUT_DIR) ($OUT_DIR)"
-  ls -l ${OUT_DIR}
+  EXIT=0
 
-  echo -e "\nWARNING: Above files will be deleted"
-  confirm
+  if [[ -s ${SCRIPT_STDERR} ]]; then
+    echo -e "\n**ERROR** (in ${SCRIPT_STDERR})"
+    cat ${SCRIPT_STDERR}
+    EXIT=1
+  fi;
 
-  rm -r ${OUT_DIR}
-  mkdir ${OUT_DIR}
-}
-
-confirm() {
-  read -rp 'Enter "y" to confirm...' REPLY
-  if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-    exit 1
+  MATCH=$( grep -P "[\d\:\/ ]+ ERROR" ${LOG} )
+  if [ -n "$MATCH" ]; then
+    echo -e "\n**ERROR** (in ${LOG})"
+    echo "$MATCH"
+    EXIT=1
   fi
+
+  MATCH=$( grep -P "^\s+\<failure\>true\<\/failure\>|\
+^\s+\<error\>true\<\/error\>|\
+^\s+\<failureMessage\>.*" $RESULTS )
+  if [ -n "$MATCH" ]; then
+    echo -e "\n**ERROR** (in $RESULTS)"
+    echo "$MATCH"
+    EXIT=1
+  fi
+
+  if [ $EXIT -eq 0 ]; then
+    echo "No Error :-)"
+  fi
+
+  exit $EXIT
 }
 
 function base_dir {
