@@ -29,12 +29,22 @@ SCRIPT_STDERR="${OUT_DIR}/script_stderr.log"
 # Each of these KEY=VALUE pairs will be passed to jMeter
 # via `--jmeterproperty KEY=VALUE`
 JMETER_PROPERTIES=(
-  "PROTOCOL=https" # http, https, file
-  "HOST=sigperf.iliasnet.de" # domain or ip, e.g. www.ilias.de, localhost, 127.0.0.1
-  "PATH=/" # must not be empty - e.g. /, /path/to/ilias, /docu, /test51, ..
-  # "PATH=/ilias/trunk" # must not be empty - e.g. /, /path/to/ilias, /docu, /test51, ..
-  "PORT=443" # e.g. 80, 443
-  "CLIENT_ID=SIGPERF" # e.g. ilias
+  # "PROTOCOL=https" # http, https, file
+  # "HOST=sigperf.iliasnet.de" # domain or ip, e.g. www.ilias.de, localhost, 127.0.0.1
+  # "PATH=/" # must not be empty - e.g. /, /path/to/ilias, /docu, /test51, ..
+  # "PORT=443" # e.g. 80, 443
+  # "CLIENT_ID=SIGPERF" # e.g. ilias
+  # "CREDENTIALS_CSV=$WORK_DIR/config/users_sigperf.csv"
+  # "IS_ADMIN=true" # default: false
+
+  "PROTOCOL=http" # http, https, file
+  "HOST=localhost" # domain or ip, e.g. www.ilias.de, localhost, 127.0.0.1
+  "PATH=/ilias/trunk/" # must not be empty - e.g. /, /path/to/ilias, /docu, /test51, ..
+  "PORT=80" # e.g. 80, 443
+  "CLIENT_ID=ilias" # e.g. ilias
+  "CREDENTIALS_CSV=$WORK_DIR/config/users_local.csv"
+  "IS_ADMIN=true" # default: false
+
   "THREADS=1" # default: 1
   "RAMP_UP=1" # default: 1
   "LOOPS=1" # default: 1
@@ -42,9 +52,6 @@ JMETER_PROPERTIES=(
   "OUT_DIR=$OUT_DIR"
   "ON_STARTUP=${WORK_DIR}/bin/script/startup.sh"
   "ON_TEARDOWN=${WORK_DIR}/bin/script/teardown.sh"
-  "CREDENTIALS_CSV=$WORK_DIR/config/users_sigperf.csv"
-  #"CREDENTIALS_CSV=/home/svnuser/performance-tests/users_sigperf.csv"
-  "IS_ADMIN=true" # default: false
 )
 
 # Each of these KEY=VALUE pairs will be passed to jMeter

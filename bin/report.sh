@@ -23,7 +23,7 @@ function main {
     echo "Result format is XML"
     REPORT=${OUT_DIR}/xml-report.html
     echo "Generating $(basename $REPORT) ($REPORT)"
-    xsltproc -o ${REPORT} bin/script/report/xml2html.xsl $RESULTS || exit
+    xsltproc -o ${REPORT} bin/script/report/xml2html-detailed.xsl $RESULTS || exit
   elif [[ $RESULTS == *.csv ]]; then
     echo "Result format is CSV"
   fi
