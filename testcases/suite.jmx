@@ -917,7 +917,7 @@ vars.put(&quot;NewCategoryAction&quot;, NewCategoryAction);</stringProp>
               <hashTree>
                 <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="ilGetNewCategoryAction" enabled="true">
                   <stringProp name="HtmlExtractor.refname">ilGetNewCategoryAction</stringProp>
-                  <stringProp name="HtmlExtractor.expr">div#accordion__1:nth-child(1) form#form_</stringProp>
+                  <stringProp name="HtmlExtractor.expr">div#accordion__1 .il_VAccordionInnerContainer:nth-child(1) form#form_</stringProp>
                   <stringProp name="HtmlExtractor.attribute">action</stringProp>
                   <stringProp name="HtmlExtractor.default">#NV</stringProp>
                   <stringProp name="HtmlExtractor.match_number">1</stringProp>
