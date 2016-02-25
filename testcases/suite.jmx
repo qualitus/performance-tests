@@ -917,46 +917,46 @@ vars.put(&quot;NewCategoryAction&quot;, NewCategoryAction);</stringProp>
               <hashTree>
                 <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="ilGetNewCategoryAction" enabled="true">
                   <stringProp name="HtmlExtractor.refname">ilGetNewCategoryAction</stringProp>
-                  <stringProp name="HtmlExtractor.expr">div#accordion__1:nth-child(1) form#form_</stringProp>
+                  <stringProp name="HtmlExtractor.expr">div#accordion__1 .il_VAccordionInnerContainer:nth-child(1) form#form_</stringProp>
                   <stringProp name="HtmlExtractor.attribute">action</stringProp>
                   <stringProp name="HtmlExtractor.default">#NV</stringProp>
-                  <stringProp name="HtmlExtractor.match_number">1</stringProp>
+                  <stringProp name="HtmlExtractor.match_number"></stringProp>
                   <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
                 </HtmlExtractor>
                 <hashTree/>
                 <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="ilGetNewCategoryTitle" enabled="true">
                   <stringProp name="HtmlExtractor.refname">ilGetNewCategoryTitle</stringProp>
-                  <stringProp name="HtmlExtractor.expr">div#accordion__1:nth-child(1) form#form_ input#title</stringProp>
+                  <stringProp name="HtmlExtractor.expr">div#accordion__1 .il_VAccordionInnerContainer:nth-child(1) form#form_ input#title</stringProp>
                   <stringProp name="HtmlExtractor.attribute">name</stringProp>
                   <stringProp name="HtmlExtractor.default">#NV</stringProp>
-                  <stringProp name="HtmlExtractor.match_number">1</stringProp>
+                  <stringProp name="HtmlExtractor.match_number"></stringProp>
                   <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
                 </HtmlExtractor>
                 <hashTree/>
                 <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="ilGetNewCategoryDescription" enabled="true">
                   <stringProp name="HtmlExtractor.refname">ilGetNewCategoryDescription</stringProp>
-                  <stringProp name="HtmlExtractor.expr">div#accordion__1:nth-child(1) form#form_ textarea#desc</stringProp>
+                  <stringProp name="HtmlExtractor.expr">div#accordion__1 .il_VAccordionInnerContainer:nth-child(1) form#form_ textarea#desc</stringProp>
                   <stringProp name="HtmlExtractor.attribute">name</stringProp>
                   <stringProp name="HtmlExtractor.default">#NV</stringProp>
-                  <stringProp name="HtmlExtractor.match_number">1</stringProp>
+                  <stringProp name="HtmlExtractor.match_number"></stringProp>
                   <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
                 </HtmlExtractor>
                 <hashTree/>
                 <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="ilGetNewCategorySubmit" enabled="true">
                   <stringProp name="HtmlExtractor.refname">ilGetNewCategorySubmit</stringProp>
-                  <stringProp name="HtmlExtractor.expr">div#accordion__1:nth-child(1) form#form_ input[type=submit][name=&quot;cmd[save]&quot;]</stringProp>
+                  <stringProp name="HtmlExtractor.expr">div#accordion__1 .il_VAccordionInnerContainer:nth-child(1) form#form_ input[type=submit][name=&quot;cmd[save]&quot;]</stringProp>
                   <stringProp name="HtmlExtractor.attribute">name</stringProp>
                   <stringProp name="HtmlExtractor.default">#NV</stringProp>
-                  <stringProp name="HtmlExtractor.match_number">1</stringProp>
+                  <stringProp name="HtmlExtractor.match_number"></stringProp>
                   <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
                 </HtmlExtractor>
                 <hashTree/>
                 <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="ilGetNewCategorySubmitV" enabled="true">
                   <stringProp name="HtmlExtractor.refname">ilGetNewCategorySubmitV</stringProp>
-                  <stringProp name="HtmlExtractor.expr">div#accordion__1:nth-child(1) form#form_ input[type=submit][name=&quot;cmd[save]&quot;]</stringProp>
+                  <stringProp name="HtmlExtractor.expr">div#accordion__1 .il_VAccordionInnerContainer:nth-child(1) form#form_ input[type=submit][name=&quot;cmd[save]&quot;]</stringProp>
                   <stringProp name="HtmlExtractor.attribute">value</stringProp>
                   <stringProp name="HtmlExtractor.default">#NV</stringProp>
-                  <stringProp name="HtmlExtractor.match_number">1</stringProp>
+                  <stringProp name="HtmlExtractor.match_number"></stringProp>
                   <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
                 </HtmlExtractor>
                 <hashTree/>
