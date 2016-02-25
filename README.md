@@ -1,5 +1,7 @@
-# Performance Testsuite
+# Community Performance Testsuite for ILIAS
 
-This is (going to be) the official community performance testsuite for ILIAS.
+This testsuite requires **jMeter 2.13**.
 
-It is documented in this [wiki](https://github.com/qualitus/performance-tests/wiki).
+See `setup/README.md` for further instructions, how to use this suite.
+
+Further documentation about this suite can be found here [wiki](https://github.com/qualitus/performance-tests/wiki).
