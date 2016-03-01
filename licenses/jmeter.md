@@ -9,7 +9,7 @@ http://www.apache.org/licenses/
 
 ============ Parts used by performance testsuite =========
 
-Stylesheet for processing 2.1 output format test result files
+XSLT-Stylesheet for XML test result files - with modifications
   license: Apache License V 2.0
   license link: http://www.apache.org/licenses/LICENSE-2.0
   subdirectories: bin/script/report/

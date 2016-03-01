@@ -8,9 +8,9 @@
    The ASF licenses this file to You under the Apache License, Version 2.0
    (the "License"); you may not use this file except in compliance with
    the License.  You may obtain a copy of the License at
- 
+
        http://www.apache.org/licenses/LICENSE-2.0
- 
+
    Unless required by applicable law or agreed to in writing, software
    distributed under the License is distributed on an "AS IS" BASIS,
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -18,13 +18,13 @@
    limitations under the License.
 -->
 
-<!-- 
-	Stylesheet for processing 2.1 output format test result files 
+<!--
+	Stylesheet for processing 2.1 output format test result files
 	To uses this directly in a browser, add the following to the JTL file as line 2:
 	<? xml-stylesheet type="text/xsl" href="../extras/jmeter-results-report_21.xsl" ?>
 	and you can then view the JTL in a browser
 -->
-	
+
 <xsl:output method="html" indent="yes" encoding="UTF-8" doctype-public="-//W3C//DTD HTML 4.01 Transitional//EN" />
 
 <xsl:param name="titleReport" select="'Load Test Results'"/>
@@ -68,15 +68,13 @@
 			</style>
 		</head>
 		<body>
-		
-			<xsl:call-template name="pageHeader" />
-			
+
 			<xsl:call-template name="summary" />
 			<hr size="1" width="95%" align="center" />
-			
+
 			<xsl:call-template name="pagelist" />
 			<hr size="1" width="95%" align="center" />
-			
+
 			<xsl:call-template name="detail" />
 
 		</body>
@@ -158,7 +156,7 @@
 </xsl:template>
 
 <xsl:template name="pagelist">
-	<h2>Pages</h2>
+	<h2>Testcases</h2>
 	<table align="center" class="details" border="0" cellpadding="5" cellspacing="2" width="95%">
 		<tr valign="top">
 			<th>URL</th>
@@ -245,14 +243,14 @@
 					<th>Response</th>
 					<th>Failure Message</th>
 				</tr>
-			
+
 				<xsl:for-each select="/testResults/*[@lb = current()/@lb][attribute::s='false']">
 					<tr>
 						<td><xsl:value-of select="@rc | @rs" /> - <xsl:value-of select="@rm" /></td>
 						<td><xsl:value-of select="assertionResult/failureMessage" /></td>
 					</tr>
 				</xsl:for-each>
-				
+
 				</table>
 			</xsl:if>
 
@@ -299,5 +297,5 @@
 	<xsl:param name="value" />
 	<xsl:value-of select="format-number($value,'0 ms')" />
 </xsl:template>
-	
+
 </xsl:stylesheet>
