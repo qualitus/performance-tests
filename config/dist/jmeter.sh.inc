@@ -2,8 +2,10 @@
 
 # Configuration of the ILIAS Performance Testsuite
 #
-# This bash script defines local variables used by `bin/run.sh`.
-# It will be included by
+# You must restart jMeter for any changes to take effect.
+#
+# This bash script defines local variables used by `bin/run.sh`,
+# `bin\jmeter.sh`, etc.
 
 WORK_DIR=$(pwd)
 
@@ -29,20 +31,12 @@ SCRIPT_STDERR="${OUT_DIR}/script_stderr.log"
 # Each of these KEY=VALUE pairs will be passed to jMeter
 # via `--jmeterproperty KEY=VALUE`
 JMETER_PROPERTIES=(
-  # "PROTOCOL=https" # http, https, file
-  # "HOST=sigperf.iliasnet.de" # domain or ip, e.g. www.ilias.de, localhost, 127.0.0.1
-  # "PATH=/" # must not be empty - e.g. /, /path/to/ilias, /docu, /test51, ..
-  # "PORT=443" # e.g. 80, 443
-  # "CLIENT_ID=SIGPERF" # e.g. ilias
-  # "CREDENTIALS_CSV=$WORK_DIR/config/users_sigperf.csv"
-  # "IS_ADMIN=true" # default: false
-
   "PROTOCOL=http" # http, https, file
   "HOST=localhost" # domain or ip, e.g. www.ilias.de, localhost, 127.0.0.1
   "PATH=/ilias/trunk/" # must not be empty - e.g. /, /path/to/ilias, /docu, /test51, ..
   "PORT=80" # e.g. 80, 443
   "CLIENT_ID=ilias" # e.g. ilias
-  "CREDENTIALS_CSV=$WORK_DIR/config/users_local.csv"
+  "CREDENTIALS_CSV=$WORK_DIR/config/users.csv"
   "IS_ADMIN=true" # default: false
 
   "THREADS=1" # default: 1
