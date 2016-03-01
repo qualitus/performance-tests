@@ -3,3 +3,4 @@ config/
 out/
 *staging*
 *.log
+apache-jmeter-*/

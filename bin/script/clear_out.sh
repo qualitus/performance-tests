@@ -15,7 +15,7 @@ function load_config {
 function main {
   load_config $@
 
-  if [-e ${OUT_DIR] ]; then
+  if [ -e ${OUT_DIR} ]; then
     echo "Clear $(basename $OUT_DIR) ($OUT_DIR)"
     ls -l ${OUT_DIR}
 

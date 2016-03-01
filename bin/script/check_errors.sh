@@ -17,12 +17,6 @@ function main {
 
   EXIT=0
 
-  if [[ -s ${SCRIPT_STDERR} ]]; then
-    echo -e "\n**ERROR** (in ${SCRIPT_STDERR})"
-    cat ${SCRIPT_STDERR}
-    EXIT=1
-  fi;
-
   MATCH=$( grep -P "[\d\:\/ ]+ ERROR" ${LOG} )
   if [ -n "$MATCH" ]; then
     echo -e "\n**ERROR** (in ${LOG})"

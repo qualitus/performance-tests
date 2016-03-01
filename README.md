@@ -1,6 +1,6 @@
 # Community Performance Testsuite for ILIAS
 
-This testsuite requires **jMeter 2.13**.
+This testsuite requires **jMeter 2.13** and is designed to run on linux systems.
 
 See the [setup](https://github.com/qualitus/performance-tests/tree/master/setup) directory for instructions, how to use this suite.
 

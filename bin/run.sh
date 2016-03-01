@@ -16,6 +16,11 @@ function load_config {
 function main {
   load_config $@
 
+  if find "${OUT_DIR}" -mindepth 1 -print -quit | grep -q .; then
+       echo "WARNING: Directory ${OUT_DIR} is not empty. You may want to run this combination instead: 'bin/script/clear_out.sh && bin/run.sh'. Press CTRL-C to abort."
+       sleep 3
+  fi
+
   echo "#### running (${TESTPLAN} in working directory: ${WORK_DIR}):"
   watch_log PID
 
@@ -78,9 +83,10 @@ function main {
 	  #--remoteexit \
 		# 	Exit the remote servers at end of test (non-GUI)
 
-  show $RESULTS \
-    $SCRIPT_STDOUT \
-    $SCRIPT_STDERR
+  echo "Content of ${OUT_DIR}:"
+  ls -hAl "${OUT_DIR}"
+
+  echo "To generate an HTML report, run 'bin/script/report.sh'"
 
   exit $EXIT
 }
@@ -94,15 +100,6 @@ function parse_jmeterprops {
 function parse_systemprops {
   for P in $@; do
     echo "--systemproperty ${P}"
-  done
-}
-
-function indent() { sed 's/^/  /'; }
-
-function show {
-  for file in $@; do
-    echo -e "\n#### `basename ${file}` (${file}):"
-    cat $file | indent
   done
 }
 

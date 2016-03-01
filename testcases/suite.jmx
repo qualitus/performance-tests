@@ -1396,7 +1396,7 @@ vars.put(&quot;NewCategoryAction&quot;, NewCategoryAction);</stringProp>
         </TransactionController>
         <hashTree/>
       </hashTree>
-      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="DEBUG: Inspect Results" enabled="true">
+      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="DEBUG: Inspect Results" enabled="false">
         <boolProp name="ResultCollector.error_logging">false</boolProp>
         <objProp>
           <name>saveConfig</name>
@@ -1427,7 +1427,7 @@ vars.put(&quot;NewCategoryAction&quot;, NewCategoryAction);</stringProp>
           </value>
         </objProp>
         <stringProp name="TestPlan.comments">temporarily place this beneath any element you want to inspect</stringProp>
-        <stringProp name="filename">out/inspect_results.xml</stringProp>
+        <stringProp name="filename"></stringProp>
       </ResultCollector>
       <hashTree/>
       <ResultCollector guiclass="StatVisualizer" testclass="ResultCollector" testname="DEV: Aggregate Report" enabled="false">
@@ -1464,7 +1464,7 @@ vars.put(&quot;NewCategoryAction&quot;, NewCategoryAction);</stringProp>
       </ResultCollector>
       <hashTree/>
     </hashTree>
-    <WorkBench guiclass="WorkBenchGui" testclass="WorkBench" testname="WorkBench" enabled="true">
+    <WorkBench guiclass="WorkBenchGui" testclass="WorkBench" testname="WorkBench" enabled="false">
       <boolProp name="WorkBench.save">true</boolProp>
     </WorkBench>
     <hashTree>
@@ -1512,7 +1512,7 @@ vars.put(&quot;NewCategoryAction&quot;, NewCategoryAction);</stringProp>
             </value>
           </objProp>
           <stringProp name="TestPlan.comments">temporarily place this beneath any element you want to inspect</stringProp>
-          <stringProp name="filename">out/inspect_variables.xml</stringProp>
+          <stringProp name="filename"></stringProp>
         </ResultCollector>
         <hashTree/>
       </hashTree>
@@ -1547,66 +1547,10 @@ vars.put(&quot;NewCategoryAction&quot;, NewCategoryAction);</stringProp>
           </value>
         </objProp>
         <stringProp name="TestPlan.comments">temporarily place this beneath any element you want to inspect</stringProp>
-        <stringProp name="filename">out/inspect_results.xml</stringProp>
-      </ResultCollector>
-      <hashTree/>
-      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="DEBUG: Inspect Results" enabled="true">
-        <boolProp name="ResultCollector.error_logging">false</boolProp>
-        <objProp>
-          <name>saveConfig</name>
-          <value class="SampleSaveConfiguration">
-            <time>false</time>
-            <latency>false</latency>
-            <timestamp>true</timestamp>
-            <success>true</success>
-            <label>false</label>
-            <code>true</code>
-            <message>false</message>
-            <threadName>true</threadName>
-            <dataType>false</dataType>
-            <encoding>false</encoding>
-            <assertions>false</assertions>
-            <subresults>false</subresults>
-            <responseData>true</responseData>
-            <samplerData>false</samplerData>
-            <xml>true</xml>
-            <fieldNames>false</fieldNames>
-            <responseHeaders>true</responseHeaders>
-            <requestHeaders>true</requestHeaders>
-            <responseDataOnError>false</responseDataOnError>
-            <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
-            <assertionsResultsToSave>0</assertionsResultsToSave>
-            <url>true</url>
-            <sampleCount>true</sampleCount>
-          </value>
-        </objProp>
-        <stringProp name="TestPlan.comments">temporarily place this beneath any element you want to inspect</stringProp>
-        <stringProp name="filename">out/inspect_results.xml</stringProp>
+        <stringProp name="filename"></stringProp>
       </ResultCollector>
       <hashTree/>
       <ConfigTestElement guiclass="PropertyControlGui" testclass="ConfigTestElement" testname="DEBUG: Display Properties" enabled="true"/>
-      <hashTree/>
-      <ProxyControl guiclass="ProxyControlGui" testclass="ProxyControl" testname="HTTP Test Script Recorder" enabled="true">
-        <stringProp name="ProxyControlGui.port">8080</stringProp>
-        <collectionProp name="ProxyControlGui.exclude_list">
-          <stringProp name="1053574911">.*\.(bmp|css|js|gif|ico|jpe?g|png|swf|woff|svg)</stringProp>
-        </collectionProp>
-        <collectionProp name="ProxyControlGui.include_list">
-          <stringProp name="565714023">localhost/ilias/trunk/.*.php?.*</stringProp>
-        </collectionProp>
-        <boolProp name="ProxyControlGui.capture_http_headers">true</boolProp>
-        <intProp name="ProxyControlGui.grouping_mode">0</intProp>
-        <boolProp name="ProxyControlGui.add_assertion">false</boolProp>
-        <stringProp name="ProxyControlGui.sampler_type_name"></stringProp>
-        <boolProp name="ProxyControlGui.sampler_redirect_automatically">false</boolProp>
-        <boolProp name="ProxyControlGui.sampler_follow_redirects">true</boolProp>
-        <boolProp name="ProxyControlGui.use_keepalive">true</boolProp>
-        <boolProp name="ProxyControlGui.sampler_download_images">false</boolProp>
-        <boolProp name="ProxyControlGui.regex_match">false</boolProp>
-        <stringProp name="ProxyControlGui.content_type_include">text/html</stringProp>
-        <stringProp name="ProxyControlGui.content_type_exclude"></stringProp>
-        <boolProp name="ProxyControlGui.notify_child_sl_filtered">true</boolProp>
-      </ProxyControl>
       <hashTree/>
     </hashTree>
   </hashTree>

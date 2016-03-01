@@ -7,14 +7,12 @@
 # This bash script defines local variables used by `bin/run.sh`,
 # `bin\jmeter.sh`, etc.
 
-WORK_DIR=$(pwd)
+WORK_DIR=$(pwd) # do not change this, unless necessary
 
-# TODO: interpret bash parameters $(echo $1; shift)
-TESTPLAN="testcases/suite.jmx"
-
-# jMeter Command -- default: jmeter
-JMETER_CMD=${WORK_DIR}/.apache-jmeter-2.13/bin/jmeter.sh
+TESTPLAN="testcases/suite.jmx" # TODO: interpret bash parameters $(echo $1; shift)
+JMETER_CMD=${WORK_DIR}/apache-jmeter-2.13/bin/jmeter.sh # jMeter Command -- default: jmeter, if in PATH env variable
 OUT_DIR="${WORK_DIR}/out"
+LOG="${OUT_DIR}/jmeter.log" # may want to add a timestamp YYYY-MM-DD...
 
 ##### Save results as CSV or XML #####
 # RESULTS="${OUT_DIR}/results.csv"
@@ -22,10 +20,6 @@ OUT_DIR="${WORK_DIR}/out"
 RESULTS="${OUT_DIR}/results.xml"
 PROPFILE="${WORK_DIR}/config/jmeter/xml-results.properties"
 #####
-
-LOG="${OUT_DIR}/jmeter.log" # may want to add a timestamp YYYY-MM-DD...
-SCRIPT_STDOUT="${OUT_DIR}/script_stdout.log"
-SCRIPT_STDERR="${OUT_DIR}/script_stderr.log"
 
 # Each of these KEY=VALUE pairs will be passed to jMeter
 # via `--jmeterproperty KEY=VALUE`
