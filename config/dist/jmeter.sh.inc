@@ -15,7 +15,6 @@ TESTPLAN="testcases/suite.jmx"
 # jMeter Command -- default: jmeter
 JMETER_CMD=${WORK_DIR}/.apache-jmeter-2.13/bin/jmeter.sh
 OUT_DIR="${WORK_DIR}/out"
-LOADER="${WORK_DIR}/bin/script/loader.bsh"
 
 ##### Save results as CSV or XML #####
 # RESULTS="${OUT_DIR}/results.csv"
@@ -43,9 +42,6 @@ JMETER_PROPERTIES=(
   "RAMP_UP=1" # default: 1
   "LOOPS=1" # default: 1
   "WORK_DIR=$WORK_DIR"
-  "OUT_DIR=$OUT_DIR"
-  "ON_STARTUP=${WORK_DIR}/bin/script/startup.sh"
-  "ON_TEARDOWN=${WORK_DIR}/bin/script/teardown.sh"
 )
 
 # Each of these KEY=VALUE pairs will be passed to jMeter

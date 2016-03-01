@@ -58,21 +58,6 @@
             <stringProp name="Argument.value">${__P(WORK_DIR,#NV)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
-          <elementProp name="OUT_DIR" elementType="Argument">
-            <stringProp name="Argument.name">OUT_DIR</stringProp>
-            <stringProp name="Argument.value">${__P(OUT_DIR,#NV)}</stringProp>
-            <stringProp name="Argument.metadata">=</stringProp>
-          </elementProp>
-          <elementProp name="ON_STARTUP" elementType="Argument">
-            <stringProp name="Argument.name">ON_STARTUP</stringProp>
-            <stringProp name="Argument.value">${__P(ON_STARTUP,#NV)}</stringProp>
-            <stringProp name="Argument.metadata">=</stringProp>
-          </elementProp>
-          <elementProp name="ON_TEARDOWN" elementType="Argument">
-            <stringProp name="Argument.name">ON_TEARDOWN</stringProp>
-            <stringProp name="Argument.value">${__P(ON_TEARDOWN,#NV)}</stringProp>
-            <stringProp name="Argument.metadata">=</stringProp>
-          </elementProp>
           <elementProp name="CREDENTIALS_CSV" elementType="Argument">
             <stringProp name="Argument.name">CREDENTIALS_CSV</stringProp>
             <stringProp name="Argument.value">${__P(CREDENTIALS_CSV,#NV)}</stringProp>
@@ -246,42 +231,6 @@
             <stringProp name="Scope.variable">WORK_DIR</stringProp>
           </ResponseAssertion>
           <hashTree/>
-          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="OUT_DIR" enabled="true">
-            <collectionProp name="Asserion.test_strings">
-              <stringProp name="-856324859">(?!#NV).+</stringProp>
-            </collectionProp>
-            <stringProp name="TestPlan.comments">may not be empty or null [equals not &quot;&quot; fails for null, i.e. yields true]</stringProp>
-            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-            <boolProp name="Assertion.assume_success">false</boolProp>
-            <intProp name="Assertion.test_type">1</intProp>
-            <stringProp name="Assertion.scope">variable</stringProp>
-            <stringProp name="Scope.variable">OUT_DIR</stringProp>
-          </ResponseAssertion>
-          <hashTree/>
-          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ON_STARTUP" enabled="true">
-            <collectionProp name="Asserion.test_strings">
-              <stringProp name="-856324859">(?!#NV).+</stringProp>
-            </collectionProp>
-            <stringProp name="TestPlan.comments">may not be empty or null [equals not &quot;&quot; fails for null, i.e. yields true]</stringProp>
-            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-            <boolProp name="Assertion.assume_success">false</boolProp>
-            <intProp name="Assertion.test_type">1</intProp>
-            <stringProp name="Assertion.scope">variable</stringProp>
-            <stringProp name="Scope.variable">ON_STARTUP</stringProp>
-          </ResponseAssertion>
-          <hashTree/>
-          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ON_TEARDOWN" enabled="true">
-            <collectionProp name="Asserion.test_strings">
-              <stringProp name="-856324859">(?!#NV).+</stringProp>
-            </collectionProp>
-            <stringProp name="TestPlan.comments">may not be empty or null [equals not &quot;&quot; fails for null, i.e. yields true]</stringProp>
-            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-            <boolProp name="Assertion.assume_success">false</boolProp>
-            <intProp name="Assertion.test_type">1</intProp>
-            <stringProp name="Assertion.scope">variable</stringProp>
-            <stringProp name="Scope.variable">ON_TEARDOWN</stringProp>
-          </ResponseAssertion>
-          <hashTree/>
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="CREDENTIALS_CSV" enabled="true">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="-856324859">(?!#NV).+</stringProp>
@@ -306,19 +255,6 @@
           </ResponseAssertion>
           <hashTree/>
         </hashTree>
-        <SystemSampler guiclass="SystemSamplerGui" testclass="SystemSampler" testname="shell: STARTUP" enabled="false">
-          <boolProp name="SystemSampler.checkReturnCode">true</boolProp>
-          <stringProp name="SystemSampler.expectedReturnCode">0</stringProp>
-          <stringProp name="SystemSampler.command">${ON_STARTUP}</stringProp>
-          <elementProp name="SystemSampler.arguments" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-            <collectionProp name="Arguments.arguments"/>
-          </elementProp>
-          <elementProp name="SystemSampler.environment" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-            <collectionProp name="Arguments.arguments"/>
-          </elementProp>
-          <stringProp name="SystemSampler.directory"></stringProp>
-        </SystemSampler>
-        <hashTree/>
       </hashTree>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Run Testplan" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
@@ -335,8 +271,6 @@
         <stringProp name="ThreadGroup.delay"></stringProp>
       </ThreadGroup>
       <hashTree>
-        <OnceOnlyController guiclass="OnceOnlyControllerGui" testclass="OnceOnlyController" testname="Login Once Only" enabled="false"/>
-        <hashTree/>
         <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="TEST Login" enabled="true">
           <boolProp name="TransactionController.includeTimers">false</boolProp>
           <boolProp name="TransactionController.parent">true</boolProp>
@@ -1462,36 +1396,7 @@ vars.put(&quot;NewCategoryAction&quot;, NewCategoryAction);</stringProp>
         </TransactionController>
         <hashTree/>
       </hashTree>
-      <PostThreadGroup guiclass="PostThreadGroupGui" testclass="PostThreadGroup" testname="Teardown" enabled="false">
-        <stringProp name="ThreadGroup.on_sample_error">stoptest</stringProp>
-        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
-          <boolProp name="LoopController.continue_forever">false</boolProp>
-          <stringProp name="LoopController.loops">1</stringProp>
-        </elementProp>
-        <stringProp name="ThreadGroup.num_threads">1</stringProp>
-        <stringProp name="ThreadGroup.ramp_time"></stringProp>
-        <longProp name="ThreadGroup.start_time">1451391345000</longProp>
-        <longProp name="ThreadGroup.end_time">1451391345000</longProp>
-        <boolProp name="ThreadGroup.scheduler">false</boolProp>
-        <stringProp name="ThreadGroup.duration"></stringProp>
-        <stringProp name="ThreadGroup.delay"></stringProp>
-      </PostThreadGroup>
-      <hashTree>
-        <SystemSampler guiclass="SystemSamplerGui" testclass="SystemSampler" testname="shell: TEARDOWN" enabled="false">
-          <boolProp name="SystemSampler.checkReturnCode">true</boolProp>
-          <stringProp name="SystemSampler.expectedReturnCode">0</stringProp>
-          <stringProp name="SystemSampler.command">${ON_TEARDOWN}</stringProp>
-          <elementProp name="SystemSampler.arguments" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-            <collectionProp name="Arguments.arguments"/>
-          </elementProp>
-          <elementProp name="SystemSampler.environment" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-            <collectionProp name="Arguments.arguments"/>
-          </elementProp>
-          <stringProp name="SystemSampler.directory"></stringProp>
-        </SystemSampler>
-        <hashTree/>
-      </hashTree>
-      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="DEBUG: Inspect Results" enabled="false">
+      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="DEBUG: Inspect Results" enabled="true">
         <boolProp name="ResultCollector.error_logging">false</boolProp>
         <objProp>
           <name>saveConfig</name>
