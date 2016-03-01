@@ -2,7 +2,7 @@
 
 # Update ILIAS
 #
-# You need to install the ILIAS auto_update script first.
+# You need to install the ILIAS auto_update script first (setup/bin/install_ilias_auto_update.sh).
 
 ENABLED=true
 

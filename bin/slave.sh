@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Run jMeter in CLI / non-GUI mode
+# Run jMeter in SLAVE / non-GUI mode for distributed testing
 #
 # NOTE:
 # * This script `cd`s into the testsuite root directory (see very last line)
@@ -96,15 +96,12 @@ function watch_log {
 }
 
 function base_dir {
-  # get the directory one level higher than this script in a reliable way
-  # derived from http://stackoverflow.com/questions/59895
-  local __SOURCE="${BASH_SOURCE[0]}"
-  while [ -h "$__SOURCE" ]; do # resolve $__SOURCE until the file is no longer a symlink
-    local __DIR="$( cd -P "$( dirname "$__SOURCE" )" && pwd )"
-    local __SOURCE="$(readlink "$__SOURCE")"
-    [[ $__SOURCE != /* ]] && SOURCE="$__DIR/$__SOURCE" # if $__SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
-  done
-  local __DIR="$( cd -P "$( dirname "$__SOURCE" )" && pwd )"
+  if hash readlink 2>/dev/null; then
+    # use readlink, if installed, to follow symlinks
+    local __DIR="$(dirname "$(readlink -f "$0")")"
+  else
+    local __DIR="$(dirname "$0")"
+  fi
   echo ${__DIR}
 }
 

@@ -15,13 +15,18 @@ function load_config {
 function main {
   load_config $@
 
-  echo "Clear $(basename $OUT_DIR) ($OUT_DIR)"
-  ls -l ${OUT_DIR}
+  if [-e ${OUT_DIR] ]; then
+    echo "Clear $(basename $OUT_DIR) ($OUT_DIR)"
+    ls -l ${OUT_DIR}
 
-  echo -e "\nWARNING: Above files will be deleted"
-  confirm
+    echo -e "\nWARNING: Above files will be deleted"
+    confirm
 
-  rm -r ${OUT_DIR}
+    rm -r ${OUT_DIR}
+  else
+    echo "Directory will be created: $(basename $OUT_DIR) ($OUT_DIR)"
+  fi
+
   mkdir ${OUT_DIR}
 }
 
@@ -33,15 +38,12 @@ confirm() {
 }
 
 function base_dir {
-  # get the directory one level higher than this script in a reliable way
-  # derived from http://stackoverflow.com/questions/59895
-  local __SOURCE="${BASH_SOURCE[0]}"
-  while [ -h "$__SOURCE" ]; do # resolve $__SOURCE until the file is no longer a symlink
-    local __DIR="$( cd -P "$( dirname "$__SOURCE" )" && pwd )"
-    local __SOURCE="$(readlink "$__SOURCE")"
-    [[ $__SOURCE != /* ]] && SOURCE="$__DIR/$__SOURCE" # if $__SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
-  done
-  local __DIR="$( cd -P "$( dirname "$__SOURCE" )" && pwd )"
+  if hash readlink 2>/dev/null; then
+    # use readlink, if installed, to follow symlinks
+    local __DIR="$(dirname "$(readlink -f "$0")")"
+  else
+    local __DIR="$(dirname "$0")"
+  fi
   echo ${__DIR}
 }
 
