@@ -5,6 +5,9 @@
 We need to install and setup the following packages.
 
 * `git clone https://github.com/qualitus/performance-tests.git`
+  * list all tags: `git tag -l`
+  * and then checkout the latest version by its tag: `git checkout tags/<tag_name>`
+  * alternatively you can download the [latest release](https://github.com/qualitus/performance-tests/releases/latest) as a ZIP file. Unzip it in a directory of your choice.
 * install **jMeter 2.13**
   * run this in the project root `curl http://mirror.netcologne.de/apache.org/jmeter/binaries/apache-jmeter-2.13.tgz | tar xvz`
   * Or, you can always find the latest binary at the [official download page](http://jmeter.apache.org/download_jmeter.cgi)
