@@ -156,9 +156,7 @@
 			<th># Samples</th>
 			<th>Failures</th>
 			<th>Success Rate</th>
-			<th>Average Time</th>
-			<th>Min Time</th>
-			<th>Max Time</th>
+			<th>Total Time</th>
 		</tr>
 		<tr valign="top">
 			<xsl:variable name="allCount" select="count(/testResults/*)" />
@@ -195,17 +193,7 @@
 			</td>
 			<td align="center">
 				<xsl:call-template name="display-time">
-					<xsl:with-param name="value" select="$allAverageTime" />
-				</xsl:call-template>
-			</td>
-			<td align="center">
-				<xsl:call-template name="display-time">
-					<xsl:with-param name="value" select="$allMinTime" />
-				</xsl:call-template>
-			</td>
-			<td align="center">
-				<xsl:call-template name="display-time">
-					<xsl:with-param name="value" select="$allMaxTime" />
+					<xsl:with-param name="value" select="$allTotalTime" />
 				</xsl:call-template>
 			</td>
 		</tr>
