@@ -30,7 +30,8 @@ JMETER_PROPERTIES=(
   "PORT=80" # e.g. 80, 443
   "CLIENT_ID=ilias" # e.g. ilias
   "CREDENTIALS_CSV=$WORK_DIR/config/users.csv"
-  "IS_ADMIN=true" # default: false
+  "IS_ADMIN=false" # default: false
+  "READ_ONLY=true" # default: true
 
   "THREADS=1" # default: 1
   "RAMP_UP=1" # default: 1

@@ -68,6 +68,11 @@
             <stringProp name="Argument.value">${__P(IS_ADMIN,#NV)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
+          <elementProp name="READ_ONLY" elementType="Argument">
+            <stringProp name="Argument.name">READ_ONLY</stringProp>
+            <stringProp name="Argument.value">${__P(READ_ONLY,#NV)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
         </collectionProp>
         <stringProp name="TestPlan.comments">import from properties - always default to &apos;#NV&apos; if not supplied</stringProp>
       </Arguments>
@@ -663,10 +668,9 @@
             <hashTree/>
           </hashTree>
         </hashTree>
-        <IfController guiclass="IfControllerPanel" testclass="IfController" testname="IF Admin" enabled="true">
-          <stringProp name="IfController.condition">${IS_ADMIN}</stringProp>
+        <IfController guiclass="IfControllerPanel" testclass="IfController" testname="IF Admin AND NOT ReadOnly" enabled="true">
+          <stringProp name="IfController.condition">${IS_ADMIN} &amp;&amp; !${READ_ONLY}</stringProp>
           <boolProp name="IfController.evaluateAll">false</boolProp>
-          <boolProp name="IfController.useExpression">true</boolProp>
         </IfController>
         <hashTree>
           <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="TEST Manage Repository" enabled="true">
