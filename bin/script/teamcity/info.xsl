@@ -12,9 +12,7 @@
 
   <build number="{{build.number}}">
     <statusInfo status="SUCCESS">
-      <text action="append"> <xsl:value-of select="$allSuccessCount" /> of <xsl:value-of select="$allCount" /> </text>
-      <text action="append"> jmeter in <xsl:value-of select="$allTotalTime" /> ms </text>
-      <text action="append"> build in {time} ms </text>
+      <text action="append"> <xsl:value-of select="$allSuccessCount" /> of <xsl:value-of select="$allCount" /> measurements passed in <xsl:value-of select="$allTotalTime" /> ms </text>
     </statusInfo>
   </build>
 </xsl:template>
