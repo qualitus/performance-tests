@@ -73,20 +73,19 @@
             <stringProp name="Argument.value">${__P(READ_ONLY,#NV)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
+          <elementProp name="USERNAME" elementType="Argument">
+            <stringProp name="Argument.name">USERNAME</stringProp>
+            <stringProp name="Argument.value">${__P(USERNAME,#NV)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="PASSWORD" elementType="Argument">
+            <stringProp name="Argument.name">PASSWORD</stringProp>
+            <stringProp name="Argument.value">${__P(PASSWORD,#NV)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
         </collectionProp>
         <stringProp name="TestPlan.comments">import from properties - always default to &apos;#NV&apos; if not supplied</stringProp>
       </Arguments>
-      <hashTree/>
-      <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="ILIAS Login Credentials" enabled="true">
-        <stringProp name="filename">${CREDENTIALS_CSV}</stringProp>
-        <stringProp name="fileEncoding">utf8</stringProp>
-        <stringProp name="variableNames">USERNAME,PASSWORD</stringProp>
-        <stringProp name="delimiter">,</stringProp>
-        <boolProp name="quotedData">false</boolProp>
-        <boolProp name="recycle">true</boolProp>
-        <boolProp name="stopThread">false</boolProp>
-        <stringProp name="shareMode">shareMode.all</stringProp>
-      </CSVDataSet>
       <hashTree/>
       <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP Request Defaults" enabled="true">
         <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
@@ -236,18 +235,6 @@
             <stringProp name="Scope.variable">WORK_DIR</stringProp>
           </ResponseAssertion>
           <hashTree/>
-          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="CREDENTIALS_CSV" enabled="true">
-            <collectionProp name="Asserion.test_strings">
-              <stringProp name="-856324859">(?!#NV).+</stringProp>
-            </collectionProp>
-            <stringProp name="TestPlan.comments">may not be empty or null [must use regex, because &quot;Not&quot; is buggy for null values, i.e. &quot;must not equal ``&quot; yields true for null]</stringProp>
-            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-            <boolProp name="Assertion.assume_success">false</boolProp>
-            <intProp name="Assertion.test_type">1</intProp>
-            <stringProp name="Assertion.scope">variable</stringProp>
-            <stringProp name="Scope.variable">CREDENTIALS_CSV</stringProp>
-          </ResponseAssertion>
-          <hashTree/>
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="IS_ADMIN" enabled="true">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="412828714">true|TRUE|false|FALSE</stringProp>
@@ -259,6 +246,43 @@
             <stringProp name="Scope.variable">IS_ADMIN</stringProp>
           </ResponseAssertion>
           <hashTree/>
+        </hashTree>
+        <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If no CREDENTIALS_CSV" enabled="true">
+          <stringProp name="IfController.condition">&quot;${CREDENTIALS_CSV}&quot;==&quot;#NV&quot;</stringProp>
+          <boolProp name="IfController.evaluateAll">false</boolProp>
+        </IfController>
+        <hashTree>
+          <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="Assert Credentials" enabled="true">
+            <boolProp name="displayJMeterProperties">false</boolProp>
+            <boolProp name="displayJMeterVariables">true</boolProp>
+            <boolProp name="displaySystemProperties">false</boolProp>
+          </DebugSampler>
+          <hashTree>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="USERNAME" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="-856324859">(?!#NV).+</stringProp>
+              </collectionProp>
+              <stringProp name="TestPlan.comments">may not be empty or null [must use regex, because &quot;Not&quot; is buggy for null values, i.e. &quot;must not equal ``&quot; yields true for null]</stringProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">1</intProp>
+              <stringProp name="Assertion.scope">variable</stringProp>
+              <stringProp name="Scope.variable">USERNAME</stringProp>
+            </ResponseAssertion>
+            <hashTree/>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="PASSWORD" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="-856324859">(?!#NV).+</stringProp>
+              </collectionProp>
+              <stringProp name="TestPlan.comments">may not be empty or null [must use regex, because &quot;Not&quot; is buggy for null values, i.e. &quot;must not equal ``&quot; yields true for null]</stringProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">1</intProp>
+              <stringProp name="Assertion.scope">variable</stringProp>
+              <stringProp name="Scope.variable">PASSWORD</stringProp>
+            </ResponseAssertion>
+            <hashTree/>
+          </hashTree>
         </hashTree>
       </hashTree>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Run Testplan" enabled="true">
@@ -281,6 +305,26 @@
           <boolProp name="TransactionController.parent">true</boolProp>
         </TransactionController>
         <hashTree>
+          <OnceOnlyController guiclass="OnceOnlyControllerGui" testclass="OnceOnlyController" testname="Load Login Credentials CSV" enabled="true"/>
+          <hashTree>
+            <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If CREDENTIALS_CSV" enabled="true">
+              <stringProp name="IfController.condition">&quot;${CREDENTIALS_CSV}&quot;!=&quot;#NV&quot;</stringProp>
+              <boolProp name="IfController.evaluateAll">false</boolProp>
+            </IfController>
+            <hashTree>
+              <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="ILIAS Login Credentials CSV" enabled="true">
+                <stringProp name="filename">${CREDENTIALS_CSV}</stringProp>
+                <stringProp name="fileEncoding">utf8</stringProp>
+                <stringProp name="variableNames">USERNAME,PASSWORD</stringProp>
+                <stringProp name="delimiter">,</stringProp>
+                <boolProp name="quotedData">false</boolProp>
+                <boolProp name="recycle">true</boolProp>
+                <boolProp name="stopThread">true</boolProp>
+                <stringProp name="shareMode">shareMode.all</stringProp>
+              </CSVDataSet>
+              <hashTree/>
+            </hashTree>
+          </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET Login" enabled="true">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
               <collectionProp name="Arguments.arguments"/>

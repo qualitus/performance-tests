@@ -29,9 +29,15 @@ JMETER_PROPERTIES=(
   "PATH=/ilias/trunk/" # must not be empty - e.g. /, /path/to/ilias, /docu, /test51, ..
   "PORT=80" # e.g. 80, 443
   "CLIENT_ID=ilias" # e.g. ilias
-  "CREDENTIALS_CSV=$WORK_DIR/config/users.csv"
   "IS_ADMIN=false" # default: false
   "READ_ONLY=true" # default: true
+
+  # Default: Static Credentials
+  "USERNAME=" # ILIAS-User
+  "PASSWORD=" # ILIAS-Password
+
+  # Alternative: Credentials from CSV
+  # "CREDENTIALS_CSV=$WORK_DIR/config/users.csv" # OVERRIDE username and password with values from this CSV file
 
   "THREADS=1" # default: 1
   "RAMP_UP=1" # default: 1
