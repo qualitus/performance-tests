@@ -9,8 +9,10 @@
 
 function load_config {
   # defines a bunch of shell variables - see the include for details
-  source config/jmeter.sh.inc || exit
-  source config/jmeter-slave.sh.inc || exit
+  source config/jmeter.sh.inc ||
+    ERR=$? && echo "HINT: run 'cp config/dist/jmeter.sh.inc config/' in the testsuite root folder and adjust the configuration'" && exit $ERR
+  source config/jmeter-slave.sh.inc ||
+    ERR=$? && echo "HINT: run 'cp config/dist/jmeter-slave.sh.inc config/' in the testsuite root folder and adjust the configuration'" && exit $ERR
 }
 
 function main {

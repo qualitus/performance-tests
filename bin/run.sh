@@ -9,8 +9,13 @@
 
 function load_config {
   # defines a bunch of shell variables - see the include for details
-  source config/jmeter.sh.inc || exit
-  source config/jmeter-master.sh.inc || exit
+  source config/jmeter.sh.inc ||
+    ERR=$? && echo "HINT: run 'cp config/dist/jmeter.sh.inc config/' in the testsuite root folder and adjust the configuration'" && exit $ERR
+    
+  # By default we only load the master-configuration if it is present
+  if [ -f "config/jmeter-master.sh.inc" ]; then
+    source config/jmeter-master.sh.inc || exit
+  fi
 }
 
 function main {
