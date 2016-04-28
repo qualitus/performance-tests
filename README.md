@@ -5,15 +5,15 @@ You need **Linux (or Mac)** - this will not work on Windows.
 ## Quick-Start
 
 1. Download
- * [Testsuite v0.1.0][dl-testsuite-0.1.0] and unzip it in a directory of your choice.
+ * Latest [Testsuite][dl-testsuite] and unzip it in a directory of your choice.
  * [jMeter v2.13][dl-jmeter-2.13] and unzip it _inside_ the testsuite directory.
 * Create an ILIAS User and test the login (accept the user agreement, etc.)
 * Edit the configuration `config/jmeter.sh.inc`
 * Run `bin/jmeter.sh`
 
-More advanced instructions can be found in the  [setup](https://github.com/qualitus/performance-tests/tree/master/setup) directory.
+More advanced instructions can be found in the [setup](https://github.com/qualitus/performance-tests/tree/master/setup) directory.
 
-[dl-testsuite-0.1.0]: https://github.com/qualitus/performance-tests/archive/v0.1.0.zip
+[dl-testsuite]: https://github.com/qualitus/performance-tests/releases/latest
 [dl-jmeter-2.13]: http://mirror.23media.de/apache//jmeter/binaries/apache-jmeter-2.13.zip
 
 ## Troubleshooting
