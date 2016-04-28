@@ -1,4 +1,13 @@
-# Setup ILIAS Users for jMeter
+# Setup of ILIAS Users for jMeter
+
+## Quick-Start
+
+* Manually create one ILIAS account for your installation
+ * language = english
+* Test the login (accept the user agreement, etc.)
+* Edit `config/jmeter.sh.inc` and enter the correct values for USERNAME="" and PASSWORD=""
+
+## Advanced Instructions
 
 In order to use the testsuite, please import a customized `user_import.xml` into ILIAS and save the credentials for jmeter as `config/users.csv`. The detailed steps are as follows
 
@@ -8,7 +17,7 @@ In order to use the testsuite, please import a customized `user_import.xml` into
 * Choose `config/user_import.xml`
 * Confirm twice via **Import** button
 
-## Customize ILIAS user accounts
+### Customize ILIAS user accounts
 
 **Important**: It is strongly recommended that you change the passwords of the jmeter users as follows.
 
@@ -28,7 +37,7 @@ sed s/09e705636e39b8d72023b3f18251de11/__MD5_HASH__/ config/user_import.xml
 * Deactivate the setting "users must change their password on first login" (can be reactivated once these users have logged in)
 * Deactivate the user agreement (or login with these users and accept the agreement)
 
-### Alternative User Data
+#### Alternative User Data
 
 If you want to add or change user data, you can edit the Excel sheet `config/user_import.xls` and export to `config/user_import.xml`. Don't forget to run these steps at the root of the repository (substitute `__STRONG_PASSWORD__`)
 ```bash
