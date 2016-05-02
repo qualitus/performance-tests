@@ -246,6 +246,17 @@
             <stringProp name="Scope.variable">IS_ADMIN</stringProp>
           </ResponseAssertion>
           <hashTree/>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="READ_ONLY" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="412828714">true|TRUE|false|FALSE</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">1</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">READ_ONLY</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
         </hashTree>
         <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If no CREDENTIALS_CSV" enabled="true">
           <stringProp name="IfController.condition">&quot;${CREDENTIALS_CSV}&quot;==&quot;#NV&quot;</stringProp>
