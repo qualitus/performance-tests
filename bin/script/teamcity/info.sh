@@ -38,4 +38,4 @@ function base_dir {
   echo ${__DIR}
 }
 
-(cd "$(base_dir)/../../" && main $@)
+(cd "$(base_dir)/../../../" && main $@)
