@@ -1,10 +1,10 @@
-﻿#!/bin/bash
+#!/bin/bash
 
 # reset one ILIAS client with another client
 #
 # copies data dirs and database after creating a backup
 # this is useful to always start with a fresh client when doing performance tests
-# 
+#
 # NOTE: After repeated usage you might want to clean up backup directories
 
 function load_config {
@@ -20,90 +20,106 @@ function main {
   replace_database
 }
 
-fn echoerr() { echo "ERROR: $@" 1>&2; }
+function echoinfo { echo "INFO: $@"; }
+function echoerr { echo "ERROR: $@" 1>&2; }
 
-fn assert_exists {
+function assert_exists {
   if [ ! -e "$1" ]; then
     echoerr "file or directory does not exist: $1"
     exit 1
   fi
 }
 
-fn assert_not_exists {
+function assert_not_exists {
   if [ -e "$1" ]; then
     echoerr "file or directory already exist: $1"
     exit 1
   fi
 }
 
-fn assert_is_dir {
-  if [ ! -d "$1"]; then
+function assert_is_dir {
+  if [ ! -d "$1" ]; then
     echoerr "$2 is not a directory: $1"
     exit 1
   fi
 }
 
-fn assert_backup_dir {
+function assert_backup_dir {
   assert_is_dir $BACKUP_DIR BACKUP_DIR
 }
 
-fn assert_data_dirs_intern {
+function assert_data_dirs_intern {
   assert_is_dir $DATA_DIR_INTERN_TARGET DATA_DIR_INTERN_TARGET
   assert_is_dir $DATA_DIR_INTERN_SOURCE DATA_DIR_INTERN_SOURCE
 }
 
-fn assert_data_dirs_extern {
+function assert_data_dirs_extern {
   assert_is_dir $DATA_DIR_EXTERN_TARGET DATA_DIR_EXTERN_TARGET
   assert_is_dir $DATA_DIR_EXTERN_SOURCE DATA_DIR_EXTERN_SOURCE
 }
 
-fn echo_database_credentials {
-  echo "--host=\"$DB_HOST\" --port=\"$DB_PORT\" --user=\"$DB_USER\" --password=\"$DB_PASSWORD\""
+function echo_database_credentials {
+  local credentials=""
+  if [ "$DB_HOST" ]; then
+    credentials+="--host=$DB_HOST "
+  fi
+  if [ "$DB_PORT" ]; then
+    credentials+="--port=$DB_PORT "
+  fi
+  if [ "$DB_USER" ]; then
+    credentials+="--user=$DB_USER "
+  fi
+  if [ "$DB_PASSWORD" ]; then
+    credentials+="--password=$DB_PASSWORD "
+  fi
+  echo $credentials
 }
 
-fn create_backup_dir {
-  $BACKUP_DIR = $BACKUP_BASEDIR + $(date +"%Y-%m-%d_%H-%M-%S")
-  echo "create backup directory: $BACKUP_DIR"
+function create_backup_dir {
+  BACKUP_DIR="$BACKUP_BASEDIR/$(date +%Y-%m-%d_%H-%M-%S)"
+  echoinfo "create backup directory: $BACKUP_DIR"
   assert_not_exists "$BACKUP_DIR"
-  mkdir $BACKUP_DIR || exit
+  mkdir $BACKUP_DIR --parents || exit
 }
 
-fn mv_to_backup {
-  echo "move to backup: $1"
+function mv_to_backup {
+  echoinfo "move to backup: $1"
   assert_exists "$1"
   assert_backup_dir
-  mv "$1" "$BACKUP_DIR/" || exit
+  mv "$1" "$BACKUP_DIR/$2" || exit
 }
 
-fn backup_target_database {
-  echo "backup database: $DB_DATABASE_TARGET"
-  $DB_DATABASE_DUMP = "$BACKUP_DIR/dump.sql"
+function backup_target_database {
+  echoinfo "backup database: $DB_DATABASE_TARGET"
+  DB_DATABASE_DUMP="$BACKUP_DIR/dump.sql"
   assert_backup_dir
   assert_not_exists "$DB_DATABASE_DUMP"
   mysqldump $(echo_database_credentials) --databases "$DB_DATABASE_TARGET" > "$DB_DATABASE_DUMP" || exit
 }
 
-fn replace_data_dir_intern {
-  echo "reset internal datadir $DATA_DIR_INTERN_SOURCE -> $DATA_DIR_INTERN_TARGET"
+function replace_data_dir_intern {
+  echoinfo "reset internal datadir $DATA_DIR_INTERN_SOURCE -> $DATA_DIR_INTERN_TARGET"
   assert_data_dirs_intern
-  mv_to_backup $DATA_DIR_INTERN_TARGET 
+  mv_to_backup $DATA_DIR_INTERN_TARGET "data_dir_intern"
   cp $DATA_DIR_INTERN_SOURCE $DATA_DIR_INTERN_TARGET -R || exit
 }
 
-fn replace_data_dir_extern {
-  echo "reset external datadir $DATA_DIR_EXTERN_SOURCE -> $DATA_DIR_EXTERN_TARGET"
+function replace_data_dir_extern {
+  echoinfo "reset external datadir $DATA_DIR_EXTERN_SOURCE -> $DATA_DIR_EXTERN_TARGET"
   assert_data_dirs_extern
-  mv_to_backup $DATA_DIR_EXTERN_TARGET
+  mv_to_backup $DATA_DIR_EXTERN_TARGET "data_dir_extern"
   cp $DATA_DIR_EXTERN_SOURCE $DATA_DIR_EXTERN_TARGET -R || exit
 }
 
-fn replace_database {
-  echo "reset database $DB_DATABASE_SOURCE -> $DB_DATABASE_TARGET"
+function replace_database {
+  echoinfo "reset database $DB_DATABASE_SOURCE -> $DB_DATABASE_TARGET"
   backup_target_database
-  echo "drop (old) target database: $DB_DATABASE_TARGET"
-
-  echo "copy database: "
-  mysqldump $(echo_database_credentials) "$DB_DATABASE_SOURCE" | mysql $(echo_database_credentials) "$DB_DATABASE_TARGET" || exit
+  echoinfo "drop existing database: $DB_DATABASE_TARGET"
+  mysql $(echo_database_credentials) --execute="DROP DATABASE IF EXISTS $DB_DATABASE_TARGET;" || exit
+  echoinfo "re-import from database template: $DB_DATABASE_SOURCE"
+  mysqldump $(echo_database_credentials) --databases "$DB_DATABASE_SOURCE" \
+    | sed "/^CREATE DATABASE\|USE\|--/ s=$DB_DATABASE_SOURCE=$DB_DATABASE_TARGET=" \
+    | mysql $(echo_database_credentials) || exit
 }
 
 function base_dir {
