@@ -20,8 +20,8 @@ function main {
   replace_database
 }
 
-function echoinfo { echo "INFO: $@"; }
-function echoerr { echo "ERROR: $@" 1>&2; }
+function echoinfo { echo "II: $@"; }
+function echoerr { echo "EE: $@" 1>&2; }
 
 function assert_exists {
   if [ ! -e "$1" ]; then
