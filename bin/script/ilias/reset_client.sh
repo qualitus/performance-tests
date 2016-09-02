@@ -14,7 +14,9 @@ function load_config {
 
 function main {
   load_config
-  create_backup_dir
+  if [ "$BACKUP_DIR" ]; then
+    create_backup_dir;
+  fi
   replace_data_dir_intern
   replace_data_dir_extern
   replace_database
@@ -100,20 +102,26 @@ function backup_target_database {
 function replace_data_dir_intern {
   echoinfo "reset internal datadir $DATA_DIR_INTERN_SOURCE -> $DATA_DIR_INTERN_TARGET"
   assert_data_dirs_intern
-  mv_to_backup $DATA_DIR_INTERN_TARGET "data_dir_intern"
+  if [ "$BACKUP_DIR" ]; then
+    mv_to_backup $DATA_DIR_INTERN_TARGET "data_dir_intern"
+  fi
   cp $DATA_DIR_INTERN_SOURCE $DATA_DIR_INTERN_TARGET -R || exit
 }
 
 function replace_data_dir_extern {
   echoinfo "reset external datadir $DATA_DIR_EXTERN_SOURCE -> $DATA_DIR_EXTERN_TARGET"
   assert_data_dirs_extern
-  mv_to_backup $DATA_DIR_EXTERN_TARGET "data_dir_extern"
+  if [ "$BACKUP_DIR" ]; then
+    mv_to_backup $DATA_DIR_EXTERN_TARGET "data_dir_extern"
+  fi
   cp $DATA_DIR_EXTERN_SOURCE $DATA_DIR_EXTERN_TARGET -R || exit
 }
 
 function replace_database {
   echoinfo "reset database $DB_DATABASE_SOURCE -> $DB_DATABASE_TARGET"
-  backup_target_database
+  if [ "$BACKUP_DIR" ]; then
+    backup_target_database
+  fi
   echoinfo "drop existing database: $DB_DATABASE_TARGET"
   mysql $(echo_database_credentials) --execute="DROP DATABASE IF EXISTS $DB_DATABASE_TARGET;" || exit
   echoinfo "re-import from database template: $DB_DATABASE_SOURCE"
