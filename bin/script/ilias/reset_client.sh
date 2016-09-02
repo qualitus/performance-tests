@@ -105,7 +105,10 @@ function replace_data_dir_intern {
   if [ "$BACKUP_DIR" ]; then
     mv_to_backup $DATA_DIR_INTERN_TARGET "data_dir_intern"
   fi
+  client_ini=$(cat $DATA_DIR_INTERN_TARGET/client.ini.php) || exit
   cp $DATA_DIR_INTERN_SOURCE $DATA_DIR_INTERN_TARGET -R || exit
+  echoinfo "restore client.ini.php"
+  echo "$client_ini" > $DATA_DIR_INTERN_TARGET/client.ini.php || exit
 }
 
 function replace_data_dir_extern {
