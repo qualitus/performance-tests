@@ -15,10 +15,13 @@ OUT_DIR="${WORK_DIR}/out"
 LOG="${OUT_DIR}/jmeter.log" # may want to add a timestamp YYYY-MM-DD...
 
 ##### Save results as CSV or XML #####
-# RESULTS="${OUT_DIR}/results.csv"
-# PROPFILE="${WORK_DIR}/config/jmeter/csv-results.properties"
-RESULTS="${OUT_DIR}/results.xml"
-PROPFILE="${WORK_DIR}/config/jmeter/xml-results.properties"
+ILIAS_PERF_REPORT_TYPE="${ILIAS_PERF_REPORT_TYPE,,}"
+if [ "$ILIAS_PERF_REPORT_TYPE" != "csv" ] && [ "$ILIAS_PERF_REPORT_TYPE" != "xml" ]; then
+  echo "WARNING: environment variable ILIAS_PERF_REPORT_TYPE is not set. Assuming ILIAS_PERF_REPORT_TYPE=\"xml\"."
+  ILIAS_PERF_REPORT_TYPE="xml"
+fi
+RESULTS="${OUT_DIR}/results.${ILIAS_PERF_REPORT_TYPE}"
+PROPFILE="${WORK_DIR}/config/jmeter/${ILIAS_PERF_REPORT_TYPE}-results.properties"
 #####
 
 # Each of these KEY=VALUE pairs will be passed to jMeter
