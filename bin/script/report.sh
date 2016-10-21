@@ -21,14 +21,15 @@ function main {
 
   # OPTIONAL STEPS:
   # render some graphs etc.
-  if [[ $RESULTS == *.xml ]]; then
+  if [ "$ILIAS_PERF_REPORT_TYPE" == "xml" ]]; then
     echo "Result format is XML"
     REPORT=${OUT_DIR}/xml-report.html
     echo "Generating $(basename $REPORT) ($REPORT)"
     xsltproc -o ${REPORT} bin/script/report/xml2html-detailed.xsl $RESULTS || exit
     cp bin/script/report/include/* "$(dirname "${REPORT}")"
-  elif [[ $RESULTS == *.csv ]]; then
+  elif [ "$ILIAS_PERF_REPORT_TYPE" == "csv" ]; then
     echo "Result format is CSV"
+    echo "UNIMPLEMENTED: No CSV report parser implemented!"
   fi
 }
 
