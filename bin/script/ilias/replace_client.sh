@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# reset one ILIAS client with another client
+# replace one ILIAS client with another client
 #
 # copies data dirs and database after creating a backup
 # this is useful to always start with a fresh client when doing performance tests
@@ -9,7 +9,7 @@
 
 function load_config {
   # defines a bunch of shell variables - see the include for details
-  source config/ilias/reset_client.sh.inc || exit
+  source config/ilias/replace_client.sh.inc || exit
 }
 
 function main {
@@ -100,7 +100,7 @@ function backup_target_database {
 }
 
 function replace_data_dir_intern {
-  echoinfo "reset internal datadir $DATA_DIR_INTERN_SOURCE -> $DATA_DIR_INTERN_TARGET"
+  echoinfo "replace internal datadir $DATA_DIR_INTERN_SOURCE -> $DATA_DIR_INTERN_TARGET"
   assert_data_dirs_intern
   if [ "$BACKUP_DIR" ]; then
     mv_to_backup $DATA_DIR_INTERN_TARGET "data_dir_intern"
@@ -112,7 +112,7 @@ function replace_data_dir_intern {
 }
 
 function replace_data_dir_extern {
-  echoinfo "reset external datadir $DATA_DIR_EXTERN_SOURCE -> $DATA_DIR_EXTERN_TARGET"
+  echoinfo "replace external datadir $DATA_DIR_EXTERN_SOURCE -> $DATA_DIR_EXTERN_TARGET"
   assert_data_dirs_extern
   if [ "$BACKUP_DIR" ]; then
     mv_to_backup $DATA_DIR_EXTERN_TARGET "data_dir_extern"
@@ -121,7 +121,7 @@ function replace_data_dir_extern {
 }
 
 function replace_database {
-  echoinfo "reset database $DB_DATABASE_SOURCE -> $DB_DATABASE_TARGET"
+  echoinfo "replace database $DB_DATABASE_SOURCE -> $DB_DATABASE_TARGET"
   if [ "$BACKUP_DIR" ]; then
     backup_target_database
   fi
