@@ -17,15 +17,22 @@ function load_config {
 function main {
   load_config $@
 
-  if [[ $RESULTS != *.xml ]]; then
-    echo "ERROR: Result format is XML"
-    exit 1
+  if [ "$ILIAS_PERF_REPORT_TYPE" == "xml" ]]; then
+    echo "Result format is XML"
+    REPORT=${OUT_DIR}/xml-report.html
+    if [[ $RESULTS != *.xml ]]; then
+      echo "ERROR: Result format is XML"
+      exit 1
+    fi
+
+    REPORT=${OUT_DIR}/teamcity-info.xml
+    echo "Generating $(basename $REPORT) ($REPORT)"
+
+    xsltproc -o $REPORT bin/script/teamcity/info.xsl $RESULTS || exit
+  elif [ "$ILIAS_PERF_REPORT_TYPE" == "csv" ]; then
+    echo "Result format is CSV"
+    echo "UNIMPLEMENTED: No CSV info parser implemented!"
   fi
-
-  REPORT=${OUT_DIR}/teamcity-info.xml
-  echo "Generating $(basename $REPORT) ($REPORT)"
-
-  xsltproc -o $REPORT bin/script/teamcity/info.xsl $RESULTS || exit
 }
 
 function base_dir {

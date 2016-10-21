@@ -17,24 +17,30 @@ function main {
 
   EXIT=0
 
-  MATCH=$( grep -P "[\d\:\/ ]+ ERROR" ${LOG} )
-  if [ -n "$MATCH" ]; then
-    echo -e "\n**ERROR** (in ${LOG})"
-    echo "$MATCH"
-    EXIT=1
-  fi
+  if [ "$ILIAS_PERF_REPORT_TYPE" == "xml" ]]; then
+    echo "Result format is XML"
+    MATCH=$( grep -P "[\d\:\/ ]+ ERROR" ${LOG} )
+    if [ -n "$MATCH" ]; then
+      echo -e "\n**ERROR** (in ${LOG})"
+      echo "$MATCH"
+      EXIT=1
+    fi
 
-  MATCH=$( grep -P "^\s+\<failure\>true\<\/failure\>|\
+    MATCH=$( grep -P "^\s+\<failure\>true\<\/failure\>|\
 ^\s+\<error\>true\<\/error\>|\
 ^\s+\<failureMessage\>.*" $RESULTS )
-  if [ -n "$MATCH" ]; then
-    echo -e "\n**ERROR** (in $RESULTS)"
-    echo "$MATCH"
-    EXIT=1
-  fi
+    if [ -n "$MATCH" ]; then
+      echo -e "\n**ERROR** (in $RESULTS)"
+      echo "$MATCH"
+      EXIT=1
+    fi
 
-  if [ $EXIT -eq 0 ]; then
-    echo "No Error :-)"
+    if [ $EXIT -eq 0 ]; then
+      echo "No Error :-)"
+    fi
+  elif [ "$ILIAS_PERF_REPORT_TYPE" == "csv" ]; then
+    echo "Result format is CSV"
+    echo "UNIMPLEMENTED: No CSV error check implemented!"
   fi
 
   exit $EXIT
