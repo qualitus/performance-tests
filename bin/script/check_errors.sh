@@ -17,7 +17,7 @@ function main {
 
   EXIT=0
 
-  if [ "$ILIAS_PERF_REPORT_TYPE" == "xml" ]]; then
+  if [ "$ILIAS_PERF_REPORT_TYPE" == "xml" ]; then
     echo "Result format is XML"
     MATCH=$( grep -P "[\d\:\/ ]+ ERROR" ${LOG} )
     if [ -n "$MATCH" ]; then

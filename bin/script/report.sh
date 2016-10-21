@@ -21,7 +21,7 @@ function main {
 
   # OPTIONAL STEPS:
   # render some graphs etc.
-  if [ "$ILIAS_PERF_REPORT_TYPE" == "xml" ]]; then
+  if [ "$ILIAS_PERF_REPORT_TYPE" == "xml" ]; then
     echo "Result format is XML"
     REPORT=${OUT_DIR}/xml-report.html
     echo "Generating $(basename $REPORT) ($REPORT)"

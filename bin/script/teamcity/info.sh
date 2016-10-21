@@ -17,7 +17,7 @@ function load_config {
 function main {
   load_config $@
 
-  if [ "$ILIAS_PERF_REPORT_TYPE" == "xml" ]]; then
+  if [ "$ILIAS_PERF_REPORT_TYPE" == "xml" ]; then
     echo "Result format is XML"
     REPORT=${OUT_DIR}/xml-report.html
     if [[ $RESULTS != *.xml ]]; then
