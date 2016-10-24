@@ -142,7 +142,7 @@
           <hashTree/>
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="HOST" enabled="true">
             <collectionProp name="Asserion.test_strings">
-              <stringProp name="2132376987">(?!#NV)[a-zA-Z0-9\-.]+</stringProp>
+              <stringProp name="1617866402">(?!#NV)[a-zA-Z0-9\-.]+</stringProp>
             </collectionProp>
             <stringProp name="TestPlan.comments">domain or ip, e.g. www.ilias.de, localhost, 127.0.0.1</stringProp>
             <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
@@ -552,13 +552,14 @@
             <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
           </HTTPSamplerProxy>
           <hashTree>
-            <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="ilGetRepositoryHeaderImage" enabled="true">
+            <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="ilGetRepositoryHeaderImage" enabled="false">
               <stringProp name="HtmlExtractor.refname">ilGetRepositoryHeaderImage</stringProp>
               <stringProp name="HtmlExtractor.expr">#headerimage</stringProp>
               <stringProp name="HtmlExtractor.attribute">src</stringProp>
               <stringProp name="HtmlExtractor.default">#NV</stringProp>
               <stringProp name="HtmlExtractor.match_number"></stringProp>
               <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
+              <stringProp name="TestPlan.comments">broken since &lt;div class=&quot;media il_HeaderInner&quot; id=&quot;dropzone_1&quot;&gt; seems to be JS-generated</stringProp>
             </HtmlExtractor>
             <hashTree/>
             <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="ilGetRepositoryBreadcrumbUrl" enabled="true">
@@ -579,16 +580,17 @@
               <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
             </HtmlExtractor>
             <hashTree/>
-            <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="ilGetRepositoryHeaderContent" enabled="true">
+            <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="ilGetRepositoryHeaderContent" enabled="false">
               <stringProp name="HtmlExtractor.refname">ilGetRepositoryHeaderContent</stringProp>
               <stringProp name="HtmlExtractor.expr">#il_mhead_t_focus</stringProp>
               <stringProp name="HtmlExtractor.attribute"></stringProp>
               <stringProp name="HtmlExtractor.default">#NV</stringProp>
               <stringProp name="HtmlExtractor.match_number"></stringProp>
               <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
+              <stringProp name="TestPlan.comments">broken since &lt;div class=&quot;media il_HeaderInner&quot; id=&quot;dropzone_1&quot;&gt; seems to be JS-generated</stringProp>
             </HtmlExtractor>
             <hashTree/>
-            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ilGetRepositoryHeaderImage" enabled="true">
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ilGetRepositoryHeaderImage" enabled="false">
               <collectionProp name="Asserion.test_strings">
                 <stringProp name="-167724106">/images/icon_root.svg</stringProp>
               </collectionProp>
@@ -613,7 +615,7 @@
             <hashTree/>
             <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ilGetRepositoryBreadcrumbContent" enabled="true">
               <collectionProp name="Asserion.test_strings">
-                <stringProp name="-2240617">${ilGetRepositoryHeaderContent}</stringProp>
+                <stringProp name="-350701718">Repository</stringProp>
               </collectionProp>
               <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
               <boolProp name="Assertion.assume_success">false</boolProp>
@@ -623,7 +625,7 @@
               <stringProp name="TestPlan.comments">sanity check, that we picked the right breadcrumb (must match the header)</stringProp>
             </ResponseAssertion>
             <hashTree/>
-            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ilGetRepositoryHeaderContent" enabled="true">
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ilGetRepositoryHeaderContent" enabled="false">
               <collectionProp name="Asserion.test_strings">
                 <stringProp name="-856324859">(?!#NV).+</stringProp>
               </collectionProp>
@@ -632,6 +634,7 @@
               <intProp name="Assertion.test_type">1</intProp>
               <stringProp name="Assertion.scope">variable</stringProp>
               <stringProp name="Scope.variable">ilGetRepositoryHeaderContent</stringProp>
+              <stringProp name="TestPlan.comments">broken since &lt;div class=&quot;media il_HeaderInner&quot; id=&quot;dropzone_1&quot;&gt; seems to be JS-generated</stringProp>
             </ResponseAssertion>
             <hashTree/>
           </hashTree>
@@ -754,13 +757,14 @@
               <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
             </HTTPSamplerProxy>
             <hashTree>
-              <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="ilGetRepositoryHeaderImage" enabled="true">
+              <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="ilGetRepositoryHeaderImage" enabled="false">
                 <stringProp name="HtmlExtractor.refname">ilGetRepositoryHeaderImage</stringProp>
                 <stringProp name="HtmlExtractor.expr">#headerimage</stringProp>
                 <stringProp name="HtmlExtractor.attribute">src</stringProp>
                 <stringProp name="HtmlExtractor.default">#NV</stringProp>
                 <stringProp name="HtmlExtractor.match_number"></stringProp>
                 <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
+                <stringProp name="TestPlan.comments">broken since &lt;div class=&quot;media il_HeaderInner&quot; id=&quot;dropzone_1&quot;&gt; seems to be JS-generated</stringProp>
               </HtmlExtractor>
               <hashTree/>
               <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="ilGetRepositoryBreadcrumbUrl" enabled="true">
@@ -781,13 +785,14 @@
                 <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
               </HtmlExtractor>
               <hashTree/>
-              <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="ilGetRepositoryHeaderContent" enabled="true">
+              <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="ilGetRepositoryHeaderContent" enabled="false">
                 <stringProp name="HtmlExtractor.refname">ilGetRepositoryHeaderContent</stringProp>
                 <stringProp name="HtmlExtractor.expr">#il_mhead_t_focus</stringProp>
                 <stringProp name="HtmlExtractor.attribute"></stringProp>
                 <stringProp name="HtmlExtractor.default">#NV</stringProp>
                 <stringProp name="HtmlExtractor.match_number"></stringProp>
                 <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
+                <stringProp name="TestPlan.comments">broken since &lt;div class=&quot;media il_HeaderInner&quot; id=&quot;dropzone_1&quot;&gt; seems to be JS-generated</stringProp>
               </HtmlExtractor>
               <hashTree/>
               <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="ilGetRepositoryNewCat" enabled="true">
@@ -799,7 +804,7 @@
                 <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
               </HtmlExtractor>
               <hashTree/>
-              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ilGetRepositoryHeaderImage" enabled="true">
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ilGetRepositoryHeaderImage" enabled="false">
                 <collectionProp name="Asserion.test_strings">
                   <stringProp name="-167724106">/images/icon_root.svg</stringProp>
                 </collectionProp>
@@ -824,7 +829,7 @@
               <hashTree/>
               <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ilGetRepositoryBreadcrumbContent" enabled="true">
                 <collectionProp name="Asserion.test_strings">
-                  <stringProp name="-2240617">${ilGetRepositoryHeaderContent}</stringProp>
+                  <stringProp name="-350701718">Repository</stringProp>
                 </collectionProp>
                 <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
                 <boolProp name="Assertion.assume_success">false</boolProp>
@@ -834,7 +839,7 @@
                 <stringProp name="TestPlan.comments">sanity check, that we picked the right breadcrumb (must match the header)</stringProp>
               </ResponseAssertion>
               <hashTree/>
-              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ilGetRepositoryHeaderContent" enabled="true">
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ilGetRepositoryHeaderContent" enabled="false">
                 <collectionProp name="Asserion.test_strings">
                   <stringProp name="-856324859">(?!#NV).+</stringProp>
                 </collectionProp>
