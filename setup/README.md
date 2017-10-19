@@ -14,8 +14,8 @@ A single jMeter instance can be setup with this testsuite as follows.
     * list all tags: `git tag -l`
     * and then checkout the latest version by its tag: `git checkout tags/<tag_name>`
   * alternatively you can download the [latest release](https://github.com/qualitus/performance-tests/releases/latest) as a ZIP file. Unzip it in a directory of your choice.
-* install **jMeter 2.13**
-  * run this in the project root (the testsuite directory)  `curl http://mirror.netcologne.de/apache.org/jmeter/binaries/apache-jmeter-2.13.tgz | tar xvz`
+* install **jMeter 3.3*
+  * run this in the project root (the testsuite directory)  `curl http://www-us.apache.org/dist//jmeter/binaries/apache-jmeter-3.3.tgz | tar xvz`
   * Or, you can always find the latest binary at the [official download page](http://jmeter.apache.org/download_jmeter.cgi)
   * _Alternatively_ install jMeter with the package manager of your distribution,
     but make sure it matches the version necessary for this testsuite.

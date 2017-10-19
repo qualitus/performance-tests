@@ -6,7 +6,7 @@ You need **Linux (or Mac)** - this will not work on Windows.
 
 1. Download
  * Latest [Testsuite][dl-testsuite] and unzip it in a directory of your choice.
- * [jMeter v2.13][dl-jmeter-2.13] and unzip it _inside_ the testsuite directory.
+ * [jMeter v3.3][dl-jmeter-3.3] and unzip it _inside_ the testsuite directory.
 * Create an ILIAS User and test the login (accept the user agreement, etc.)
 * Edit the configuration `config/jmeter.sh.inc`
 * Run `bin/jmeter.sh`
@@ -14,7 +14,7 @@ You need **Linux (or Mac)** - this will not work on Windows.
 More advanced instructions can be found in the [setup](https://github.com/qualitus/performance-tests/tree/master/setup) directory.
 
 [dl-testsuite]: https://github.com/qualitus/performance-tests/releases/latest
-[dl-jmeter-2.13]: http://mirror.23media.de/apache//jmeter/binaries/apache-jmeter-2.13.zip
+[dl-jmeter-3.3]: http://www-us.apache.org/dist//jmeter/binaries/apache-jmeter-3.3.tgz
 
 ## Troubleshooting
 
@@ -23,6 +23,6 @@ Please feel free to use the [issue tracker](https://github.com/qualitus/performa
 It is meant to be used for any support AND bugs related to this testsuite.
 
 ## Further Information
-This testsuite requires **jMeter 2.13** and is designed to run on Linux. It should also run on Mac, but not on Windows.
+This testsuite requires **jMeter 3.3** and is designed to run on Linux. It should also run on Mac, but not on Windows.
 
 Further documentation about this suite can be found here [wiki](https://github.com/qualitus/performance-tests/wiki).
