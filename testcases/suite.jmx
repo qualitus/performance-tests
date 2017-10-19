@@ -4242,13 +4242,6 @@ vars.putObject(&quot;CategoryRefIds&quot;, null);</stringProp>
                   <hashTree/>
                 </hashTree>
               </hashTree>
-              <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="CleanUp Variables PostProcessor" enabled="true">
-                <boolProp name="resetInterpreter">false</boolProp>
-                <stringProp name="parameters"></stringProp>
-                <stringProp name="filename"></stringProp>
-                <stringProp name="script"></stringProp>
-              </BeanShellPostProcessor>
-              <hashTree/>
               <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="DEBUG: Snapshot Variables" enabled="true">
                 <boolProp name="displayJMeterProperties">false</boolProp>
                 <boolProp name="displayJMeterVariables">true</boolProp>
