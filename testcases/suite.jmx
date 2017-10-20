@@ -3156,7 +3156,7 @@ vars.putObject(&quot;CategoryRefIds&quot;, RefIds);</stringProp>
                   </hashTree>
                 </hashTree>
               </hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET New Forum" enabled="true">
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET New Forum Get Formaction" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                   <collectionProp name="Arguments.arguments">
                     <elementProp name="ref_id" elementType="HTTPArgument">
@@ -3383,7 +3383,7 @@ vars.putObject(&quot;CategoryRefIds&quot;, RefIds);</stringProp>
                 </ResponseAssertion>
                 <hashTree/>
               </hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET New Thread with Post From Url" enabled="true">
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET New Thread with Post From Url Get Formaction" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                   <collectionProp name="Arguments.arguments"/>
                 </elementProp>
@@ -3587,10 +3587,8 @@ String myThread        = vars.get(&quot;my_custom_course_thread_counter&quot;);
 
 if(currentLoop != oldLoop &amp;&amp; currentThread == myThread)
 {
-	log.info(&quot;REMOVING VAR&quot;);
    vars.remove(&quot;course_member_login&quot;);
 }
-log.info(&quot;PREProcessor VAR&quot; + &quot; &quot; + oldLoop + &quot; &quot; + currentLoop);
 vars.put(&quot;my_custom_course_iteration_counter&quot;, currentLoop);
 vars.put(&quot;my_custom_course_thread_counter&quot;, currentThread);
 
@@ -3619,7 +3617,7 @@ vars.put(&quot;ilCourseCreationSessions&quot;, Integer.toString(sessions));</str
                   <boolProp name="CounterConfig.reset_on_tg_iteration">true</boolProp>
                 </CounterConfig>
                 <hashTree/>
-                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET New Course ${ilCourseCreationCounterForTestTitle}" enabled="true">
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET New Course ${ilCourseCreationCounterForTestTitle} Get Formaction" enabled="true">
                   <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                     <collectionProp name="Arguments.arguments">
                       <elementProp name="ref_id" elementType="HTTPArgument">
@@ -3767,6 +3765,15 @@ vars.put(&quot;ilCourseCreationSessions&quot;, Integer.toString(sessions));</str
                     <stringProp name="RegexExtractor.match_number"></stringProp>
                   </RegexExtractor>
                   <hashTree/>
+                  <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="ilGetCourseMembershipUrl" enabled="true">
+                    <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+                    <stringProp name="RegexExtractor.refname">ilGetCourseMembershipUrl</stringProp>
+                    <stringProp name="RegexExtractor.regex">href=&quot;(.+?ref_id=${ilGetNewCourseRefId}.+?cmdClass=ilcoursemembershipgui.+?)&quot;</stringProp>
+                    <stringProp name="RegexExtractor.template"></stringProp>
+                    <stringProp name="RegexExtractor.default"></stringProp>
+                    <stringProp name="RegexExtractor.match_number"></stringProp>
+                  </RegexExtractor>
+                  <hashTree/>
                   <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ilGetNewCourseHeaderImage" enabled="true">
                     <collectionProp name="Asserion.test_strings">
                       <stringProp name="-462514170">./templates/default/images/icon_crs.svg</stringProp>
@@ -3790,15 +3797,6 @@ vars.put(&quot;ilCourseCreationSessions&quot;, Integer.toString(sessions));</str
                     <stringProp name="Scope.variable">ilGetNewCourseRefId_g1</stringProp>
                   </ResponseAssertion>
                   <hashTree/>
-                  <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="ilGetCourseMembershipUrl" enabled="true">
-                    <stringProp name="RegexExtractor.useHeaders">false</stringProp>
-                    <stringProp name="RegexExtractor.refname">ilGetCourseMembershipUrl</stringProp>
-                    <stringProp name="RegexExtractor.regex">href=&quot;(.+?ref_id=${ilGetNewCourseRefId}.+?cmdClass=ilcoursemembershipgui.+?)&quot;</stringProp>
-                    <stringProp name="RegexExtractor.template"></stringProp>
-                    <stringProp name="RegexExtractor.default"></stringProp>
-                    <stringProp name="RegexExtractor.match_number"></stringProp>
-                  </RegexExtractor>
-                  <hashTree/>
                   <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ilGetCourseMembershipUrl" enabled="true">
                     <collectionProp name="Asserion.test_strings">
                       <stringProp name="36139">#NV</stringProp>
@@ -3809,7 +3807,7 @@ vars.put(&quot;ilCourseCreationSessions&quot;, Integer.toString(sessions));</str
                   </ResponseAssertion>
                   <hashTree/>
                 </hashTree>
-                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET New Course Sessions ${ilCourseCreationCounterForTestTitle}" enabled="true">
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET New Course Sessions ${ilCourseCreationCounterForTestTitle} Get Formaction" enabled="true">
                   <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                     <collectionProp name="Arguments.arguments">
                       <elementProp name="ref_id" elementType="HTTPArgument">
@@ -4035,7 +4033,7 @@ vars.put(&quot;ilCourseCreationSessions&quot;, Integer.toString(sessions));</str
                   </ResponseAssertion>
                   <hashTree/>
                 </hashTree>
-                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET Course Add Members Get Member Id" enabled="true">
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET Course Add Members Get Formaction" enabled="true">
                   <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                     <collectionProp name="Arguments.arguments"/>
                   </elementProp>
@@ -4076,6 +4074,15 @@ vars.put(&quot;ilCourseCreationSessions&quot;, Integer.toString(sessions));</str
                     <stringProp name="Sample.scope">all</stringProp>
                   </HtmlExtractor>
                   <hashTree/>
+                  <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="ilGetCourseMembersGalleryUrl" enabled="true">
+                    <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+                    <stringProp name="RegexExtractor.refname">ilGetCourseMembersGalleryUrl</stringProp>
+                    <stringProp name="RegexExtractor.regex">href=&quot;(.+?ref_id=${ilGetNewCourseRefId_g1}.+?cmdClass=ilusersgallerygui.+?)&quot;</stringProp>
+                    <stringProp name="RegexExtractor.template"></stringProp>
+                    <stringProp name="RegexExtractor.default"></stringProp>
+                    <stringProp name="RegexExtractor.match_number"></stringProp>
+                  </RegexExtractor>
+                  <hashTree/>
                   <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ilGetNewCourseAddMemberGetId" enabled="true">
                     <collectionProp name="Asserion.test_strings">
                       <stringProp name="36139">#NV</stringProp>
@@ -4096,6 +4103,79 @@ vars.put(&quot;ilCourseCreationSessions&quot;, Integer.toString(sessions));</str
                     <intProp name="Assertion.test_type">12</intProp>
                     <stringProp name="Assertion.scope">variable</stringProp>
                     <stringProp name="Scope.variable">ilGetNewCourseAddMemberFormAction</stringProp>
+                  </ResponseAssertion>
+                  <hashTree/>
+                  <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ilGetCourseMembersGalleryUrl" enabled="true">
+                    <collectionProp name="Asserion.test_strings">
+                      <stringProp name="36139">#NV</stringProp>
+                    </collectionProp>
+                    <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                    <boolProp name="Assertion.assume_success">false</boolProp>
+                    <intProp name="Assertion.test_type">12</intProp>
+                    <stringProp name="Assertion.scope">variable</stringProp>
+                    <stringProp name="Scope.variable">ilGetCourseMembersGalleryUrl</stringProp>
+                  </ResponseAssertion>
+                  <hashTree/>
+                </hashTree>
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET Course  ${ilCourseCreationCounterForTestTitle} Members Gallery Before Users" enabled="true">
+                  <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+                    <collectionProp name="Arguments.arguments"/>
+                  </elementProp>
+                  <stringProp name="HTTPSampler.domain"></stringProp>
+                  <stringProp name="HTTPSampler.port"></stringProp>
+                  <stringProp name="HTTPSampler.protocol"></stringProp>
+                  <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                  <stringProp name="HTTPSampler.path">${PATH}/${__unescapeHtml(${ilGetCourseMembersGalleryUrl_g1})}</stringProp>
+                  <stringProp name="HTTPSampler.method">GET</stringProp>
+                  <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                  <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                  <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                  <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                  <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                  <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                  <stringProp name="HTTPSampler.response_timeout"></stringProp>
+                </HTTPSamplerProxy>
+                <hashTree>
+                  <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="ilGetCourseHeaderImageBefore" enabled="true">
+                    <stringProp name="HtmlExtractor.refname">ilGetCourseHeaderImageBefore</stringProp>
+                    <stringProp name="HtmlExtractor.expr">#headerimage</stringProp>
+                    <stringProp name="HtmlExtractor.attribute">src</stringProp>
+                    <stringProp name="HtmlExtractor.default">#NV</stringProp>
+                    <stringProp name="HtmlExtractor.match_number"></stringProp>
+                    <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
+                    <boolProp name="HtmlExtractor.default_empty_value">false</boolProp>
+                  </HtmlExtractor>
+                  <hashTree/>
+                  <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="ilGetCourseMembersGalleryUrlContainsGalleryBefore" enabled="true">
+                    <stringProp name="RegexExtractor.useHeaders">URL</stringProp>
+                    <stringProp name="RegexExtractor.refname">ilGetCourseMembersGalleryUrlContainsGalleryBefore</stringProp>
+                    <stringProp name="RegexExtractor.regex">(.+?cmdClass=ilusersgallerygui.+?)</stringProp>
+                    <stringProp name="RegexExtractor.template"></stringProp>
+                    <stringProp name="RegexExtractor.default"></stringProp>
+                    <stringProp name="RegexExtractor.match_number"></stringProp>
+                  </RegexExtractor>
+                  <hashTree/>
+                  <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ilGetCourseHeaderImageBefore" enabled="true">
+                    <collectionProp name="Asserion.test_strings">
+                      <stringProp name="-462514170">./templates/default/images/icon_crs.svg</stringProp>
+                    </collectionProp>
+                    <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                    <boolProp name="Assertion.assume_success">false</boolProp>
+                    <intProp name="Assertion.test_type">16</intProp>
+                    <stringProp name="Assertion.scope">variable</stringProp>
+                    <stringProp name="Scope.variable">ilGetCourseHeaderImageBefore</stringProp>
+                    <stringProp name="TestPlan.comments">sanity check if we are on the right page (and not forced to change password, accept user agreement, etc.)</stringProp>
+                  </ResponseAssertion>
+                  <hashTree/>
+                  <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ilGetCourseMembersGalleryUrlContainsGalleryBefore" enabled="true">
+                    <collectionProp name="Asserion.test_strings">
+                      <stringProp name="36139">#NV</stringProp>
+                    </collectionProp>
+                    <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                    <boolProp name="Assertion.assume_success">false</boolProp>
+                    <intProp name="Assertion.test_type">12</intProp>
+                    <stringProp name="Assertion.scope">variable</stringProp>
+                    <stringProp name="Scope.variable">ilGetCourseMembersGalleryUrlContainsGalleryBefore</stringProp>
                   </ResponseAssertion>
                   <hashTree/>
                 </hashTree>
@@ -4121,7 +4201,7 @@ vars.put(&quot;ilCourseCreationSessions&quot;, Integer.toString(sessions));</str
                     <stringProp name="TestPlan.comments">If we don&apos;t have a thread id, we are in the forum overview</stringProp>
                   </IfController>
                   <hashTree>
-                    <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST Course Add Members" enabled="true">
+                    <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST Course ${ilCourseCreationCounterForTestTitle} Add Members" enabled="true">
                       <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                         <collectionProp name="Arguments.arguments">
                           <elementProp name="cmd[addUserFromAutoComplete]" elementType="HTTPArgument">
@@ -4185,6 +4265,89 @@ vars.put(&quot;ilCourseCreationSessions&quot;, Integer.toString(sessions));</str
                       <hashTree/>
                     </hashTree>
                   </hashTree>
+                </hashTree>
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET Course  ${ilCourseCreationCounterForTestTitle} Members Gallery After" enabled="true">
+                  <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+                    <collectionProp name="Arguments.arguments"/>
+                  </elementProp>
+                  <stringProp name="HTTPSampler.domain"></stringProp>
+                  <stringProp name="HTTPSampler.port"></stringProp>
+                  <stringProp name="HTTPSampler.protocol"></stringProp>
+                  <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                  <stringProp name="HTTPSampler.path">${PATH}/${__unescapeHtml(${ilGetCourseMembersGalleryUrl_g1})}</stringProp>
+                  <stringProp name="HTTPSampler.method">GET</stringProp>
+                  <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                  <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                  <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                  <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                  <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                  <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                  <stringProp name="HTTPSampler.response_timeout"></stringProp>
+                </HTTPSamplerProxy>
+                <hashTree>
+                  <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="ilGetCourseHeaderImageAfter" enabled="true">
+                    <stringProp name="HtmlExtractor.refname">ilGetCourseHeaderImageAfter</stringProp>
+                    <stringProp name="HtmlExtractor.expr">#headerimage</stringProp>
+                    <stringProp name="HtmlExtractor.attribute">src</stringProp>
+                    <stringProp name="HtmlExtractor.default">#NV</stringProp>
+                    <stringProp name="HtmlExtractor.match_number"></stringProp>
+                    <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
+                    <boolProp name="HtmlExtractor.default_empty_value">false</boolProp>
+                  </HtmlExtractor>
+                  <hashTree/>
+                  <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="ilGetCourseHeaderContentAfter" enabled="true">
+                    <stringProp name="HtmlExtractor.refname">ilGetCourseHeaderContentAfter</stringProp>
+                    <stringProp name="HtmlExtractor.expr">div.il-card.thumbnail</stringProp>
+                    <stringProp name="HtmlExtractor.attribute">class</stringProp>
+                    <stringProp name="HtmlExtractor.default">#NV</stringProp>
+                    <stringProp name="HtmlExtractor.match_number"></stringProp>
+                    <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
+                    <boolProp name="HtmlExtractor.default_empty_value">false</boolProp>
+                  </HtmlExtractor>
+                  <hashTree/>
+                  <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="ilGetCourseMembersGalleryUrlContainsGalleryAfter" enabled="true">
+                    <stringProp name="RegexExtractor.useHeaders">URL</stringProp>
+                    <stringProp name="RegexExtractor.refname">ilGetCourseMembersGalleryUrlContainsGalleryAfter</stringProp>
+                    <stringProp name="RegexExtractor.regex">(.+?cmdClass=ilusersgallerygui.+?)</stringProp>
+                    <stringProp name="RegexExtractor.template"></stringProp>
+                    <stringProp name="RegexExtractor.default"></stringProp>
+                    <stringProp name="RegexExtractor.match_number"></stringProp>
+                  </RegexExtractor>
+                  <hashTree/>
+                  <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ilGetCourseHeaderImageAfter" enabled="true">
+                    <collectionProp name="Asserion.test_strings">
+                      <stringProp name="-462514170">./templates/default/images/icon_crs.svg</stringProp>
+                    </collectionProp>
+                    <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                    <boolProp name="Assertion.assume_success">false</boolProp>
+                    <intProp name="Assertion.test_type">16</intProp>
+                    <stringProp name="Assertion.scope">variable</stringProp>
+                    <stringProp name="Scope.variable">ilGetCourseHeaderImageAfter</stringProp>
+                    <stringProp name="TestPlan.comments">sanity check if we are on the right page (and not forced to change password, accept user agreement, etc.)</stringProp>
+                  </ResponseAssertion>
+                  <hashTree/>
+                  <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ilGetCourseHeaderContentAfter" enabled="true">
+                    <collectionProp name="Asserion.test_strings">
+                      <stringProp name="840937926">il-card thumbnail</stringProp>
+                    </collectionProp>
+                    <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                    <boolProp name="Assertion.assume_success">false</boolProp>
+                    <intProp name="Assertion.test_type">8</intProp>
+                    <stringProp name="Assertion.scope">variable</stringProp>
+                    <stringProp name="Scope.variable">ilGetCourseHeaderContentAfter</stringProp>
+                  </ResponseAssertion>
+                  <hashTree/>
+                  <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ilGetCourseMembersGalleryUrlContainsGalleryAfter" enabled="true">
+                    <collectionProp name="Asserion.test_strings">
+                      <stringProp name="36139">#NV</stringProp>
+                    </collectionProp>
+                    <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                    <boolProp name="Assertion.assume_success">false</boolProp>
+                    <intProp name="Assertion.test_type">12</intProp>
+                    <stringProp name="Assertion.scope">variable</stringProp>
+                    <stringProp name="Scope.variable">ilGetCourseMembersGalleryUrlContainsGalleryAfter</stringProp>
+                  </ResponseAssertion>
+                  <hashTree/>
                 </hashTree>
               </hashTree>
               <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="DEBUG: Snapshot Variables" enabled="true">
@@ -4274,7 +4437,7 @@ vars.put(&quot;ilCourseCreationSessions&quot;, Integer.toString(sessions));</str
                   </ResponseAssertion>
                   <hashTree/>
                 </hashTree>
-                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET GetRemoveCategoryFormActionUrl" enabled="true">
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET Get Remove Category Get Formaction" enabled="true">
                   <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                     <collectionProp name="Arguments.arguments">
                       <elementProp name="client_id" elementType="HTTPArgument">
