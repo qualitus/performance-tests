@@ -3576,6 +3576,29 @@ vars.putObject(&quot;CategoryRefIds&quot;, RefIds);</stringProp>
                 <stringProp name="LoopController.loops">4</stringProp>
               </LoopController>
               <hashTree>
+                <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="Reset Loop Variables if loop changes" enabled="true">
+                  <stringProp name="filename"></stringProp>
+                  <stringProp name="parameters"></stringProp>
+                  <boolProp name="resetInterpreter">false</boolProp>
+                  <stringProp name="script">String currentLoop     = &quot;${ilCourseCreationCounterForTestTitle}&quot;;
+String currentThread   = &quot;${__BeanShell(ctx.getThreadNum();,)}&quot;;
+String oldLoop         = vars.get(&quot;my_custom_course_iteration_counter&quot;);
+String myThread        = vars.get(&quot;my_custom_course_thread_counter&quot;);
+
+if(currentLoop != oldLoop &amp;&amp; currentThread == myThread)
+{
+	log.info(&quot;REMOVING VAR&quot;);
+   vars.remove(&quot;course_member_login&quot;);
+}
+log.info(&quot;PREProcessor VAR&quot; + &quot; &quot; + oldLoop + &quot; &quot; + currentLoop);
+vars.put(&quot;my_custom_course_iteration_counter&quot;, currentLoop);
+vars.put(&quot;my_custom_course_thread_counter&quot;, currentThread);
+
+int sessions = Integer.parseInt(vars.get(&quot;ilCourseCreationCounter&quot;));
+sessions = 10 * sessions;
+vars.put(&quot;ilCourseCreationSessions&quot;, Integer.toString(sessions));</stringProp>
+                </BeanShellPreProcessor>
+                <hashTree/>
                 <CounterConfig guiclass="CounterConfigGui" testclass="CounterConfig" testname="ilCourseCreationCounter" enabled="true">
                   <stringProp name="CounterConfig.start">1</stringProp>
                   <stringProp name="CounterConfig.end">10</stringProp>
@@ -3595,15 +3618,6 @@ vars.putObject(&quot;CategoryRefIds&quot;, RefIds);</stringProp>
                   <boolProp name="CounterConfig.per_user">true</boolProp>
                   <boolProp name="CounterConfig.reset_on_tg_iteration">true</boolProp>
                 </CounterConfig>
-                <hashTree/>
-                <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="CalculateSessionValue" enabled="true">
-                  <boolProp name="resetInterpreter">false</boolProp>
-                  <stringProp name="parameters"></stringProp>
-                  <stringProp name="filename"></stringProp>
-                  <stringProp name="script">int sessions = Integer.parseInt(vars.get(&quot;ilCourseCreationCounter&quot;));
-sessions = 10 * sessions;
-vars.put(&quot;ilCourseCreationSessions&quot;, Integer.toString(sessions));</stringProp>
-                </BeanShellPreProcessor>
                 <hashTree/>
                 <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET New Course ${ilCourseCreationCounterForTestTitle}" enabled="true">
                   <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
@@ -3774,6 +3788,24 @@ vars.put(&quot;ilCourseCreationSessions&quot;, Integer.toString(sessions));</str
                     <intProp name="Assertion.test_type">1</intProp>
                     <stringProp name="Assertion.scope">variable</stringProp>
                     <stringProp name="Scope.variable">ilGetNewCourseRefId_g1</stringProp>
+                  </ResponseAssertion>
+                  <hashTree/>
+                  <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="ilGetCourseMembershipUrl" enabled="true">
+                    <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+                    <stringProp name="RegexExtractor.refname">ilGetCourseMembershipUrl</stringProp>
+                    <stringProp name="RegexExtractor.regex">href=&quot;(.+?ref_id=${ilGetNewCourseRefId}.+?cmdClass=ilcoursemembershipgui.+?)&quot;</stringProp>
+                    <stringProp name="RegexExtractor.template"></stringProp>
+                    <stringProp name="RegexExtractor.default"></stringProp>
+                    <stringProp name="RegexExtractor.match_number"></stringProp>
+                  </RegexExtractor>
+                  <hashTree/>
+                  <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ilGetCourseMembershipUrl" enabled="true">
+                    <collectionProp name="Asserion.test_strings">
+                      <stringProp name="36139">#NV</stringProp>
+                    </collectionProp>
+                    <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                    <boolProp name="Assertion.assume_success">false</boolProp>
+                    <intProp name="Assertion.test_type">12</intProp>
                   </ResponseAssertion>
                   <hashTree/>
                 </hashTree>
@@ -4003,7 +4035,164 @@ vars.put(&quot;ilCourseCreationSessions&quot;, Integer.toString(sessions));</str
                   </ResponseAssertion>
                   <hashTree/>
                 </hashTree>
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET Course Add Members Get Member Id" enabled="true">
+                  <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+                    <collectionProp name="Arguments.arguments"/>
+                  </elementProp>
+                  <stringProp name="HTTPSampler.domain"></stringProp>
+                  <stringProp name="HTTPSampler.port"></stringProp>
+                  <stringProp name="HTTPSampler.protocol"></stringProp>
+                  <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                  <stringProp name="HTTPSampler.path">${PATH}/${__unescapeHtml(${ilGetCourseMembershipUrl_g1})}</stringProp>
+                  <stringProp name="HTTPSampler.method">GET</stringProp>
+                  <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                  <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                  <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                  <boolProp name="HTTPSampler.DO_MULTIPART_POST">true</boolProp>
+                  <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                  <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                  <stringProp name="HTTPSampler.response_timeout"></stringProp>
+                </HTTPSamplerProxy>
+                <hashTree>
+                  <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="ilGetNewCourseAddMemberGetId" enabled="true">
+                    <stringProp name="HtmlExtractor.refname">ilGetNewCourseAddMemberGetId</stringProp>
+                    <stringProp name="HtmlExtractor.expr">#user_type &gt; option[selected=&quot;selected&quot;]</stringProp>
+                    <stringProp name="HtmlExtractor.attribute">value</stringProp>
+                    <stringProp name="HtmlExtractor.default">#NV</stringProp>
+                    <stringProp name="HtmlExtractor.match_number"></stringProp>
+                    <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
+                    <boolProp name="HtmlExtractor.default_empty_value">false</boolProp>
+                    <stringProp name="Sample.scope">all</stringProp>
+                  </HtmlExtractor>
+                  <hashTree/>
+                  <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="ilGetNewCourseAddMemberFormAction" enabled="true">
+                    <stringProp name="HtmlExtractor.refname">ilGetNewCourseAddMemberFormAction</stringProp>
+                    <stringProp name="HtmlExtractor.expr">#ilToolbar</stringProp>
+                    <stringProp name="HtmlExtractor.attribute">action</stringProp>
+                    <stringProp name="HtmlExtractor.default">#NV</stringProp>
+                    <stringProp name="HtmlExtractor.match_number"></stringProp>
+                    <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
+                    <boolProp name="HtmlExtractor.default_empty_value">false</boolProp>
+                    <stringProp name="Sample.scope">all</stringProp>
+                  </HtmlExtractor>
+                  <hashTree/>
+                  <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ilGetNewCourseAddMemberGetId" enabled="true">
+                    <collectionProp name="Asserion.test_strings">
+                      <stringProp name="36139">#NV</stringProp>
+                    </collectionProp>
+                    <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                    <boolProp name="Assertion.assume_success">false</boolProp>
+                    <intProp name="Assertion.test_type">12</intProp>
+                    <stringProp name="Assertion.scope">variable</stringProp>
+                    <stringProp name="Scope.variable">ilGetNewCourseAddMemberGetId</stringProp>
+                  </ResponseAssertion>
+                  <hashTree/>
+                  <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ilGetNewCourseAddMemberFormAction" enabled="true">
+                    <collectionProp name="Asserion.test_strings">
+                      <stringProp name="36139">#NV</stringProp>
+                    </collectionProp>
+                    <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                    <boolProp name="Assertion.assume_success">false</boolProp>
+                    <intProp name="Assertion.test_type">12</intProp>
+                    <stringProp name="Assertion.scope">variable</stringProp>
+                    <stringProp name="Scope.variable">ilGetNewCourseAddMemberFormAction</stringProp>
+                  </ResponseAssertion>
+                  <hashTree/>
+                </hashTree>
+                <WhileController guiclass="WhileControllerGui" testclass="WhileController" testname="While Controller" enabled="true">
+                  <stringProp name="WhileController.condition">${__javaScript(&quot;${course_member_login}&quot; != &quot;###STOP###&quot;)}</stringProp>
+                </WhileController>
+                <hashTree>
+                  <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config" enabled="true">
+                    <stringProp name="filename">config/course_members.csv</stringProp>
+                    <stringProp name="fileEncoding">UTF-8</stringProp>
+                    <stringProp name="variableNames">course_member_login</stringProp>
+                    <boolProp name="ignoreFirstLine">true</boolProp>
+                    <stringProp name="delimiter">,</stringProp>
+                    <boolProp name="quotedData">false</boolProp>
+                    <boolProp name="recycle">true</boolProp>
+                    <boolProp name="stopThread">false</boolProp>
+                    <stringProp name="shareMode">shareMode.group</stringProp>
+                  </CSVDataSet>
+                  <hashTree/>
+                  <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Controller" enabled="true">
+                    <stringProp name="IfController.condition">&quot;${course_member_login}&quot; != &quot;###STOP###&quot;</stringProp>
+                    <boolProp name="IfController.evaluateAll">false</boolProp>
+                    <stringProp name="TestPlan.comments">If we don&apos;t have a thread id, we are in the forum overview</stringProp>
+                  </IfController>
+                  <hashTree>
+                    <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST Course Add Members" enabled="true">
+                      <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+                        <collectionProp name="Arguments.arguments">
+                          <elementProp name="cmd[addUserFromAutoComplete]" elementType="HTTPArgument">
+                            <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                            <stringProp name="Argument.value">Add</stringProp>
+                            <stringProp name="Argument.metadata">=</stringProp>
+                            <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                            <stringProp name="Argument.name">cmd[addUserFromAutoComplete]</stringProp>
+                          </elementProp>
+                          <elementProp name="user_login" elementType="HTTPArgument">
+                            <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                            <stringProp name="Argument.value">${course_member_login}</stringProp>
+                            <stringProp name="Argument.metadata">=</stringProp>
+                            <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                            <stringProp name="Argument.name">user_login</stringProp>
+                          </elementProp>
+                          <elementProp name="user_type" elementType="HTTPArgument">
+                            <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                            <stringProp name="Argument.value">${ilGetNewCourseAddMemberGetId}</stringProp>
+                            <stringProp name="Argument.metadata">=</stringProp>
+                            <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                            <stringProp name="Argument.name">user_type</stringProp>
+                          </elementProp>
+                        </collectionProp>
+                      </elementProp>
+                      <stringProp name="HTTPSampler.domain"></stringProp>
+                      <stringProp name="HTTPSampler.port"></stringProp>
+                      <stringProp name="HTTPSampler.protocol"></stringProp>
+                      <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                      <stringProp name="HTTPSampler.path">${PATH}/${__unescapeHtml(${ilGetNewCourseAddMemberFormAction})}</stringProp>
+                      <stringProp name="HTTPSampler.method">POST</stringProp>
+                      <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                      <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                      <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                      <boolProp name="HTTPSampler.DO_MULTIPART_POST">true</boolProp>
+                      <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                      <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                      <stringProp name="HTTPSampler.response_timeout"></stringProp>
+                    </HTTPSamplerProxy>
+                    <hashTree>
+                      <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="ilGetCourseSessionSuccess" enabled="true">
+                        <stringProp name="HtmlExtractor.refname">ilGetCourseSessionSuccess</stringProp>
+                        <stringProp name="HtmlExtractor.expr">.alert.alert-success</stringProp>
+                        <stringProp name="HtmlExtractor.attribute">class</stringProp>
+                        <stringProp name="HtmlExtractor.default">#NV</stringProp>
+                        <stringProp name="HtmlExtractor.match_number"></stringProp>
+                        <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
+                        <boolProp name="HtmlExtractor.default_empty_value">false</boolProp>
+                      </HtmlExtractor>
+                      <hashTree/>
+                      <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ilGetCourseSessionSuccessValidate" enabled="true">
+                        <collectionProp name="Asserion.test_strings">
+                          <stringProp name="1007402190">alert alert-success</stringProp>
+                        </collectionProp>
+                        <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                        <boolProp name="Assertion.assume_success">false</boolProp>
+                        <intProp name="Assertion.test_type">8</intProp>
+                        <stringProp name="Assertion.scope">variable</stringProp>
+                        <stringProp name="Scope.variable">ilGetCourseSessionSuccess</stringProp>
+                      </ResponseAssertion>
+                      <hashTree/>
+                    </hashTree>
+                  </hashTree>
+                </hashTree>
               </hashTree>
+              <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="DEBUG: Snapshot Variables" enabled="true">
+                <boolProp name="displayJMeterProperties">false</boolProp>
+                <boolProp name="displayJMeterVariables">true</boolProp>
+                <boolProp name="displaySystemProperties">false</boolProp>
+              </DebugSampler>
+              <hashTree/>
               <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete First Created Category" enabled="true"/>
               <hashTree>
                 <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET DeleteCategoryAction" enabled="true">
@@ -4242,12 +4431,6 @@ vars.putObject(&quot;CategoryRefIds&quot;, null);</stringProp>
                   <hashTree/>
                 </hashTree>
               </hashTree>
-              <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="DEBUG: Snapshot Variables" enabled="true">
-                <boolProp name="displayJMeterProperties">false</boolProp>
-                <boolProp name="displayJMeterVariables">true</boolProp>
-                <boolProp name="displaySystemProperties">false</boolProp>
-              </DebugSampler>
-              <hashTree/>
               <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="${ITERATIONS}x Delete Category (nested)" enabled="false">
                 <boolProp name="LoopController.continue_forever">true</boolProp>
                 <stringProp name="LoopController.loops">${ITERATIONS}</stringProp>
@@ -4648,6 +4831,12 @@ vars.put(&quot;NewCategoryAction&quot;, NewCategoryAction);</stringProp>
       <boolProp name="WorkBench.save">true</boolProp>
     </WorkBench>
     <hashTree>
+      <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="DEBUG: Snapshot Variables" enabled="true">
+        <boolProp name="displayJMeterProperties">false</boolProp>
+        <boolProp name="displayJMeterVariables">true</boolProp>
+        <boolProp name="displaySystemProperties">false</boolProp>
+      </DebugSampler>
+      <hashTree/>
       <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="DEBUG: Inspect Results" enabled="true">
         <boolProp name="ResultCollector.error_logging">true</boolProp>
         <objProp>
