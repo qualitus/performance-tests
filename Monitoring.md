@@ -8,7 +8,7 @@ The ILIAS Continuous Integration server [ci.ilias.de](http://ci.ilias.de) trigge
   * database updates
   * language updates
 * The CI server resets the database and data directory of the test system to a predefined state
-* Measurements are performed for PHP5 and PHP7 individually (measuring HHVM will be discontinued soon)
+* Measurements are performed for PHP5 and PHP7 individually
 * The CI server fetches the measurement data and generates reports
 
 Read more: [How to access the ILIAS Performance Monitoring](https://www.ilias.de/docu/goto_docu_wiki_wpage_4391_3063.html).
@@ -26,7 +26,7 @@ Read more: [How to access the ILIAS Performance Monitoring](https://www.ilias.de
 
 Software stack
 * Ubuntu
-* PHP 7.x + PHP 5.x (+ HHVM)
+* PHP 7.x + PHP 5.x
 * MariaDB
 * Nginx
 * Apache
