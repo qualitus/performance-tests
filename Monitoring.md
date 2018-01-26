@@ -29,7 +29,6 @@ Software stack
 * PHP 7.x + PHP 5.x
 * MariaDB
 * Nginx
-* Apache
 * jMeter
 * [ILIAS performance testsuite](https://github.com/qualitus/performance-tests)
 * and some helper script for updating ILIAS:
